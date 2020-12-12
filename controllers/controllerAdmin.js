@@ -1,28 +1,12 @@
 const Admin = require('../models/listAdmin')
+const bcrypt = require('bcrypt')
+const passport = require('passport')
+const LocalStrategy = require('passport-local').Strategy
 
 exports.index = (req, res, next) => {
-    res.render('login', {loginErrVisibility: "hidden"});
+    res.render('login');
 }
-exports.checkLoginValid = (req, res, next) => {
-    const username = req.body.username;
-    const password = req.body.password;
-    console.log(username);
-    console.log(password);
-    Admin.findOne({username: username, password: password})
-    .then((result) => {
-        console.log(result);
-        console.log("go to table");
-        if (result != null){
-            res.render('index')
-        }
-        else{
-            res.render('login', {loginErrVisibility: "visible"});
-        }
-    })
-    .catch((err) => {
-        console.log(err);
-    })
-}
+
 //add new admin
 exports.addAdmin = (req, res, next) => {
     const admin = new Admin({
