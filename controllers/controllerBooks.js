@@ -3,14 +3,19 @@ const fs = require('fs');
 const mongoose = require('mongoose');
 const { ObjectID } = require('mongodb');
 
-const Book = require('../models/listBook')
+const Book = require('../models/listBookModels')
 
 exports.index = (req, res, next) => {
-    res.render('index');
+    res.render('index', {
+        title: "Dashboard"
+    });
 }
 exports.table = async(req, res, next) => {
     const Books = await Book.listBook();
-    res.render('table', {Books});
+    res.render('table', {
+        Books,
+        title: "Table"
+    });
 }
 exports.addBook = async(req, res, next) => {
     // const name = req.body.name;

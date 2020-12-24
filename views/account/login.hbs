@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - Login</title>
+  <title>Login | My Book Store Admin</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -62,9 +62,9 @@
                     </button>
                     <hr>
                   </form>
-                  {{#if messages.error}}
+                  {{#if err}}
                     <div class="text-center">
-                      <p>{{messages.error}}</p>
+                      <p class="text-danger">{{err}}</p>
                     </div>
                     <hr>
                   {{/if}}

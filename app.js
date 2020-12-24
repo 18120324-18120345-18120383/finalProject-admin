@@ -5,10 +5,12 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose')
 const passport = require('passport')
+const session = require("express-session")
+const bodyParser = require("body-parser");
 
 const indexRouter = require('./routes/index');
 const tableRouter = require('./routes/tables');
-const Book = require('./models/listBook');
+
 const app = express();
 
 const url = "mongodb+srv://team-web:i031Onxb3JsJ0Gj9@cluster0.nhzle.mongodb.net/book-store?retryWrites=true&w=majority"
@@ -26,8 +28,19 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(session({ secret: "cats" }));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use('/', indexRouter);
 app.use('/tables', checkAuthenticated, tableRouter)
+
+// user
+app.use(function (req, res, next) {
+  res.locals.user = req.user;
+  next()
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
