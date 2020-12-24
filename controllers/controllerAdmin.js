@@ -87,7 +87,7 @@ exports.resetPassword = async (req, res) => {
                 res.render('account/forgotPassword', {
                     layout: '',
                     messageTitle: "Error",
-                    message: "Link is expired!!!"
+                    message: err
                 })
             } else {
                 email = decoded.email
