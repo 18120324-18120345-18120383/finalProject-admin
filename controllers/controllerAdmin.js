@@ -14,6 +14,18 @@ const upload = multer({
     limits: {fileSize: 2000000} //size of image must under 2000000 byte (2MB)
 }).single('avatar')
 
+require("dotenv").config();
+const nodemailer = require('nodemailer')
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_PASS
+    }
+})
+const jwt = require('jsonwebtoken')
+const randomstring = require('randomstring')
+
 exports.login = async (req, res, next) => {
     res.render('account/login', {layout: ''});
 }
@@ -22,6 +34,75 @@ exports.loginErr = (req, res, next) => {
         err: "Username or password is incorrect!!!",
         layout: ''
     })
+}
+exports.forgotPassword = (req, res, next) => {
+    res.render('account/forgotPassword', {
+        layout: ''
+    })
+}
+exports.postForgotPassword = async (req, res, next) => {
+    const email = req.body.email
+    const admin = await listAdmin.getAdminByEmail(email)
+    if (admin){
+        const token = jwt.sign({email}, process.env.JWT_RESET_PASS, {expiresIn: '1m'})
+
+        const emailData = {
+            from: 'My Book Store Admin <noreply@mybookstore.com>',
+            to: email,
+            subject: 'Reset your password',
+            html: `
+            <h2>Please click on the link below to reset your password</h2>  
+            <a href="${process.env.CLIENT_URL}reset-password/${token}">
+            ${process.env.CLIENT_URL}reset-password/${token}</a>
+            `
+        }
+
+        transporter.sendMail(emailData, (err, info) => {
+            if (err) {
+                console.log(err)
+            } else {
+                console.log('Email has been sent to ' + email)
+            }
+        })
+
+        res.render('account/forgotPassword', {
+            layout: '',
+            messageTitle: "Check your email",
+            message: "Please check your email to take reset password link!!!"
+        })
+    } else {
+        res.render('account/forgotPassword', {
+            layout: '',
+            messageTitle: "Error",
+            message: "Do not exist an account with your email!!!"
+        })
+    }
+}
+exports.resetPassword = async (req, res) => {
+    const token = req.params.token;
+    if (token){
+        let email;
+        jwt.verify(token, process.env.JWT_RESET_PASS, function(err, decoded) {
+            if (err){
+                res.render('account/forgotPassword', {
+                    layout: '',
+                    messageTitle: "Error",
+                    message: "Link is expired!!!"
+                })
+            } else {
+                email = decoded.email
+            }
+          });
+        const newPassword = randomstring.generate(10)
+        const admin = await listAdmin.changePasswordByEmail(email, newPassword)
+        res.render('account/forgotPassword', {
+            layout: '',
+            messageTitle: "Reset password successfully!!!",
+            message: "Your username is " + admin.username + "; Your new password is: " + newPassword 
+        })
+    } else {
+        showNotif(res, "Error!!!", 'Something wrong!!!');
+    }
 }
 exports.getProfile = (req, res, next) => {
     const admin = req.user;

@@ -84,3 +84,19 @@ module.exports.changePasswordByUsername = async (username, newPassword) =>{
     const admin = await Admin.findOneAndUpdate(filter, update);
     return admin;
 }
+module.exports.getAdminByEmail = async (email) => {
+    const admin = await Admin.findOne({email: email}).exec();
+    return admin
+}
+module.exports.changePasswordByEmail = async (email, newPassword) =>{
+    const filter = {email: email};
+
+    const hashedPassword = await bcrybt.hash(newPassword, 10)
+
+    let update = {
+        password: hashedPassword
+    };
+
+    const admin = await Admin.findOneAndUpdate(filter, update);
+    return admin;
+}

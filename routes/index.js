@@ -18,6 +18,9 @@ router.post('/login', passport.authenticate('local', {
     failureRedirect: '/loginErr',
     failureFlash: false
 }))
+router.get('/forgot-password', checkNotAuthenticated, controllerAdmin.forgotPassword)
+router.post('/forgot-password', controllerAdmin.postForgotPassword)
+router.get('/reset-password/:token', checkNotAuthenticated, controllerAdmin.resetPassword)
 router.delete('/logout', (req, res) => {
     req.logOut()
     res.redirect('/login')
