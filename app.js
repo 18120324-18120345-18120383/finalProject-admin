@@ -33,14 +33,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/', indexRouter);
-app.use('/tables', checkAuthenticated, tableRouter)
-
 // user
 app.use(function (req, res, next) {
   res.locals.user = req.user;
+  console.log('haha')
+  console.log(req.user)
+  console.log('hihi')
   next()
 });
+
+app.use('/', indexRouter);
+app.use('/tables', checkAuthenticated, tableRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
