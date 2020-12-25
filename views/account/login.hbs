@@ -65,9 +65,10 @@
                   <div class="text-center">
                       <a class="small" href="/forgot-password">Forgot Password?</a>
                   </div>
-                  {{#if err}}
+                  {{#if messages}}
+                    <hr>
                     <div class="text-center">
-                      <p class="text-danger">{{err}}</p>
+                      <p class="text-danger">{{messages.error}}</p>
                     </div>
                     <hr>
                   {{/if}}

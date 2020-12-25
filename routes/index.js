@@ -12,11 +12,10 @@ router.use(methodOverride('_method'))
 /* GET home page. */
 router.get('/', checkAuthenticated, controllerBooks.index);
 router.get('/login', checkNotAuthenticated, controllerAdmin.login);
-router.get('/loginErr', checkNotAuthenticated, controllerAdmin.loginErr);
 router.post('/login', passport.authenticate('local', {
     successRedirect: '/',
-    failureRedirect: '/loginErr',
-    failureFlash: false
+    failureRedirect: '/login',
+    failureFlash: true
 }))
 router.get('/forgot-password', checkNotAuthenticated, controllerAdmin.forgotPassword)
 router.post('/forgot-password', controllerAdmin.postForgotPassword)

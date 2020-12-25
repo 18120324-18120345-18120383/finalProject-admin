@@ -26,13 +26,13 @@ module.exports.authenticateAdmin = async (username, password) => {
     const admin = await Admin.findOne({username: username}).exec();
 
     if (admin == null) {
-        return false;
+        return "Username does not exist!!!";
     }
     let flag = await bcrybt.compare(password, admin.password);
-    if (flag) {
-        return admin;
+    if (!flag) {
+        return "Your password is incorrect!!!";
     }
-    return false;
+    return admin;
 }
 module.exports.createAccount = async(username, hashedPassword, email) => {
     const admin = await Admin.insertMany({

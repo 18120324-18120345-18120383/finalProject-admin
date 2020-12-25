@@ -5,8 +5,8 @@ const listAdminModels = require('../models/listAdminModels')
 passport.use(new LocalStrategy(
   async function (username, password, done) {
     const admin = await listAdminModels.authenticateAdmin(username, password) 
-    if (!admin) {
-      return done(null, false);
+    if (!admin.username) {
+      return done(null, false, { message: admin});
     }
     return done(null, admin);
   }

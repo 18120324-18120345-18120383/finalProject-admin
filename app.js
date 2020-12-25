@@ -6,6 +6,7 @@ const logger = require('morgan');
 const mongoose = require('mongoose')
 const passport = require('passport')
 const session = require("express-session")
+const flash = require('express-flash')
 const bodyParser = require("body-parser");
 
 const indexRouter = require('./routes/index');
@@ -34,6 +35,7 @@ app.use(session({ secret: "cats" }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash())
 
 // user
 app.use(function (req, res, next) {

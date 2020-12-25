@@ -27,13 +27,9 @@ const jwt = require('jsonwebtoken')
 const randomstring = require('randomstring')
 
 exports.login = async (req, res, next) => {
-    res.render('account/login', {layout: ''});
-}
-exports.loginErr = (req, res, next) => {
     res.render('account/login', {
-        err: "Username or password is incorrect!!!",
         layout: ''
-    })
+    });
 }
 exports.forgotPassword = (req, res, next) => {
     res.render('account/forgotPassword', {
