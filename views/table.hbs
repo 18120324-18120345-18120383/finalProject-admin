@@ -109,7 +109,7 @@
                     <td>{{basePrice}}</td>
                     <td>
                       <div class="d-flex justify-content-center">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal"
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editBookModal"
                           data-id={{_id}} data-name="{{name}}" data-firstcover={{cover.[0]}}
                           data-secondcover={{cover.[1]}} data-thirdcover={{cover.[2]}} data-category="{{category}}"
                           data-categoryid={{categoryID}} data-price={{basePrice}} data-description="{{description}}">
@@ -121,7 +121,7 @@
                   {{/each}}
                   <!-- Modal -->
 
-                  <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                  <div class="modal fade" id="editBookModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
@@ -194,3 +194,4 @@
 
     </div>
     <!-- End of Main Content -->
+

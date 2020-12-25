@@ -1,4 +1,4 @@
-$('#editModal').on('show.bs.modal', function (event) {
+$('#editBookModal').on('show.bs.modal', function (event) {
     const button = $(event.relatedTarget) // Button that triggered the modal
     const name = button.data('name')
     const cover1 = button.data('firstcover')
