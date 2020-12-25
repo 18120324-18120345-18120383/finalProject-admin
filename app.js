@@ -10,7 +10,7 @@ const flash = require('express-flash')
 const bodyParser = require("body-parser");
 
 const indexRouter = require('./routes/index');
-const tableRouter = require('./routes/tables');
+const booksRouter = require('./routes/books');
 const userRouter = require('./routes/users');
 
 const app = express();
@@ -44,7 +44,7 @@ app.use(function (req, res, next) {
 });
 
 app.use('/', indexRouter);
-app.use('/tables', checkAuthenticated, tableRouter)
+app.use('/books', checkAuthenticated, booksRouter)
 app.use('/users-account', userRouter)
 
 // catch 404 and forward to error handler

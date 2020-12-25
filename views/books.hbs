@@ -20,7 +20,7 @@
               </div>
             </div>
             {{!-- Add --}}
-            <form action="/tables/add" method="POST" enctype="multipart/form-data">
+            <form action="/books/add" method="POST" enctype="multipart/form-data">
               <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -126,7 +126,7 @@
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         {{!-- Update --}}
-                        <form action="/tables/update" method="POST">
+                        <form action="/books/update" method="POST">
                           <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Edit Book</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -176,7 +176,7 @@
                             </div>
                           </div>
                           <div class="modal-footer">
-                            <button type="submit" formaction="/tables/delete" class="btn btn-danger">Delete</button>
+                            <button type="submit" formaction="/books/delete" class="btn btn-danger">Delete</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Save changes</button>
                           </div>

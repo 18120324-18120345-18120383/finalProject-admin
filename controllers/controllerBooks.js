@@ -10,11 +10,11 @@ exports.index = (req, res, next) => {
         title: "Dashboard"
     });
 }
-exports.table = async(req, res, next) => {
+exports.books = async(req, res, next) => {
     const Books = await Book.listBook();
-    res.render('table', {
+    res.render('books', {
         Books,
-        title: "Table"
+        title: "Books"
     });
 }
 exports.addBook = async(req, res, next) => {
@@ -109,7 +109,7 @@ exports.addBook = async(req, res, next) => {
         };
         try{
             Book.addOneBook(book);
-            res.redirect('/tables');
+            res.redirect('/books');
         }
         catch(err){
             console.log(err);
@@ -211,7 +211,7 @@ exports.updateBook = async(req, res, next) => {
         };
         try{
             Book.updateBook(filter, update);
-            res.redirect('/tables');
+            res.redirect('/books');
         }
         catch(err){
             console.log(err);
@@ -222,7 +222,7 @@ exports.deleteBook = (req, res, next) => {
     const id = req.body.id;
     try{
         Book.deleteOneBook(id);
-        res.redirect('/tables');
+        res.redirect('/books');
     }
     catch(err){
         console.log(err);
