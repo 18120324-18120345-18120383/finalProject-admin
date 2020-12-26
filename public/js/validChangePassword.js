@@ -8,6 +8,9 @@ const validateForm = () => {
     if (retype.value !== newPassword.value){
         return false;
     }
+    if (errPassword.hidden == false){
+        return false;
+    }
     return true;
 }
 
