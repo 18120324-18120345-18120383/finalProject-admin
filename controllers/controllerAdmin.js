@@ -144,17 +144,9 @@ exports.changePassword = (req, res, next) => {
     })
 }
 exports.postChangePassword = async (req, res, next) => {
-
-    //compare current password to password that user type
-    const validPass = await bcrypt.compare(req.body.password, req.user.password)
-
-    if (!validPass){
-        showNotif(res, "Error", "Your password is incorrect!!!")
-    } else {
-        const newPassword = req.body.newPassword[0]
-        listAdmin.changePasswordByUsername(req.user.username, newPassword)
-        showNotif(res, "Successfully", "Your password has been changed!!!")
-    }
+    const newPassword = req.body.newPassword[0]
+    listAdmin.changePasswordByUsername(req.user.username, newPassword)
+    showNotif(res, "Successfully", "Your password has been changed!!!")
 }
 
 function showNotif(res, myNotifTitle, myNotifText) {
