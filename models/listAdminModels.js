@@ -23,10 +23,15 @@ module.exports.getAdminByID = async (id) =>{
     return admin;
 }
 module.exports.authenticateAdmin = async (username, password) => {
-    const admin = await Admin.findOne({username: username}).exec();
+    let admin;
+    if (username.indexOf('@') != -1){
+        admin = await Admin.findOne({email: username}).exec();
+    } else {
+        admin = await Admin.findOne({username: username}).exec();
+    }
 
     if (admin == null) {
-        return "Username does not exist!!!";
+        return "An account with your username or email does not exist!!!";
     }
     let flag = await bcrybt.compare(password, admin.password);
     if (!flag) {

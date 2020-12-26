@@ -45,7 +45,7 @@ app.use(function (req, res, next) {
 
 app.use('/', indexRouter);
 app.use('/books', checkAuthenticated, booksRouter)
-app.use('/users-account', userRouter)
+app.use('/users-account', checkAuthenticated, userRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
