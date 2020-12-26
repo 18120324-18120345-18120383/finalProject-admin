@@ -8,11 +8,6 @@ const validateForm = () => {
     if (retype.value !== newPassword.value){
         return false;
     }
-    $.getJSON('/api/authenticate-password', {password: password.value}, function(data){
-        if (data == false){
-            return false;
-        }
-    })
     return true;
 }
 
