@@ -12,9 +12,11 @@ exports.index = (req, res, next) => {
 }
 exports.books = async(req, res, next) => {
     let books = await Book.listBook();
+    let categories = await Book.listCategory();
 
     res.render('books', {
         books,
+        categories,
         title: "Books"
     });
 }
