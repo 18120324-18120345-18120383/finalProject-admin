@@ -4,3 +4,12 @@
     height: 30%;
     border-radius: 50%;
 }
+.half {
+    width: 50%;
+ }
+ .left {
+     float: left;
+ }
+ .right {
+     float: right;
+ }

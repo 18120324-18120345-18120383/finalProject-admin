@@ -18,15 +18,21 @@
     </div>
     <div class="card-body">
       <div class="table-responsive filterable">
-        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <table class="table table-bordered" id="usersTable" width="100%" cellspacing="0">
           <thead>
             <tr class="filters">
-              <th><input type="text" class="form-control" placeholder="Username" disabled></th>
-              <th><input type="text" class="form-control" placeholder="Email" disabled></th>
-              <th><input type="text" class="form-control" placeholder="First name" disabled></th>
-              <th><input type="text" class="form-control" placeholder="Last name" disabled></th>
-              <th><input type="text" class="form-control" placeholder="Active" disabled></th>
-              <th><button class="btn btn-dark btn-xs btn-filter">Search</button></th>
+              <th><input type="text" id="filterUsername" class="form-control" placeholder="Username"></th>
+              <th><input type="email" id="filterEmail" class="form-control" placeholder="Email"></th>
+              <th><input type="text" id="filterFirstName" class="form-control" placeholder="First name"></th>
+              <th><input type="text" id="filterLastName" class="form-control" placeholder="Last name"></th>
+              <th>
+                <select id="filterActive" class="form-control" name="active">
+                  <option value="">All</option>
+                  <option value="true">Active</option>
+                  <option value="false">Blocked</option>
+                </select>
+              </th>
+              <th><button id="btnFilterUser" class="btn btn-dark btn-xs btn-filter">Filter</button></th>
             </tr>
             <tr>
               <th>Username</th>
@@ -34,9 +40,19 @@
               <th>First name</th>
               <th>Last name</th>
               <th>Active</th>
+              <th>Detail</th>
             </tr>
           </thead>
-          <tbody>
+          <tfoot>
+            <tr>
+              <th>Username</th>
+              <th>Email</th>
+              <th>First name</th>
+              <th>Last name</th>
+              <th>Active</th>
+            </tr>
+          </tfoot>
+          <tbody id="bodyUsersTable">
             {{#each users}}
             <tr>
               <td>{{username}}</td>
@@ -60,10 +76,11 @@
               </td>
               <td>
                 <button type="button" class="btn btn-link" data-toggle="modal" data-target="#detailModal"
-                    data-id={{_id}} data-username={{username}} data-email={{email}} data-firstname="{{firstName}}"
-                    data-lastname="{{lastName}}" data-more="{{more}}" data-phonenumber="{{phoneNumber}}" data-isactive="{{isActive}}">
-                    Detail
-                  </button>
+                  data-id={{_id}} data-username={{username}} data-email={{email}} data-firstname="{{firstName}}"
+                  data-lastname="{{lastName}}" data-more="{{more}}" data-phonenumber="{{phoneNumber}}"
+                  data-isactive="{{isActive}}">
+                  Detail
+                </button>
               </td>
             </tr>
             {{/each}}
@@ -112,11 +129,13 @@
                       <div class="form-group">
                         <p>Active</p>
                         <div class="form-check form-check-inline">
-                          <input class="form-check-input isActive" type="radio" name="isActive" id="trueIsActive" value="false" disabled>
+                          <input class="form-check-input isActive" type="radio" name="isActive" id="trueIsActive"
+                            value="false" disabled>
                           <label class="form-check-label" for="trueIsActive">Blocked</label>
                         </div>
                         <div class="form-check form-check-inline">
-                          <input class="form-check-input isActive" type="radio" name="isActive" id="falseIsActive" value="true" disabled>
+                          <input class="form-check-input isActive" type="radio" name="isActive" id="falseIsActive"
+                            value="true" disabled>
                           <label class="form-check-label" for="falseIsActive">Active</label>
                         </div>
                       </div>
@@ -128,9 +147,9 @@
                 </div>
               </div>
             </div>
-          <!-- End of Detail Modal -->
+            <!-- End of Detail Modal -->
 
-          <!-- Active Modal -->
+            <!-- Active Modal -->
             <div class="modal fade" id="activeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
               aria-hidden="true">
               <div class="modal-dialog" role="document">
@@ -158,11 +177,13 @@
                       <div class="form-group">
                         <p>Active</p>
                         <div class="form-check form-check-inline">
-                          <input class="form-check-input isActive" type="radio" name="isActive" id="trueIsActive" value="false">
+                          <input class="form-check-input isActive" type="radio" name="isActive" id="trueIsActive"
+                            value="false">
                           <label class="form-check-label" for="trueIsActive">Blocked</label>
                         </div>
                         <div class="form-check form-check-inline">
-                          <input class="form-check-input isActive" type="radio" name="isActive" id="falseIsActive" value="true">
+                          <input class="form-check-input isActive" type="radio" name="isActive" id="falseIsActive"
+                            value="true">
                           <label class="form-check-label" for="falseIsActive">Active</label>
                         </div>
                       </div>
@@ -186,4 +207,4 @@
 
 </div>
 <!-- End of Main Content -->
-
+<script src="js/filterUsers.js"></script>

@@ -11,9 +11,10 @@ exports.index = (req, res, next) => {
     });
 }
 exports.books = async(req, res, next) => {
-    const Books = await Book.listBook();
+    let books = await Book.listBook();
+
     res.render('books', {
-        Books,
+        books,
         title: "Books"
     });
 }

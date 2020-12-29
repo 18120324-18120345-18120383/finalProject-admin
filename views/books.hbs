@@ -1,197 +1,214 @@
+<!-- Begin Page Content -->
+<div class="container-fluid">
 
-      <!-- Begin Page Content -->
-      <div class="container-fluid">
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">Books</h1>
 
-        <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-        <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-          For more information about DataTables, please visit the <a target="_blank"
-            href="https://datatables.net">official DataTables documentation</a>.</p>
-
-        <!-- DataTales Example -->
-        <div class="card shadow mb-4">
-          <div class="card-header py-3">
-            <div class="row">
-              <div class="col-sm-11">
-                <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <div class="row">
+        <div class="col-sm-11">
+          <h6 class="m-0 font-weight-bold text-primary">List of Book</h6>
+        </div>
+        <div class="col-sm-1">
+          <button class="btn-success btn" data-toggle="modal" data-target="#addModal">Add</button>
+        </div>
+      </div>
+      {{!-- Add --}}
+      <form action="/books/add" method="POST" enctype="multipart/form-data">
+        <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New book</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
               </div>
-              <div class="col-sm-1">
-                <button class="btn-success btn" data-toggle="modal" data-target="#addModal">Add</button>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label for="InputName">Name</label>
+                  <input type="text" class="form-control" id="InputName" name="name">
+                </div>
+                <div class="form-group">
+                  <label for="InputCategory">Category</label>
+                  {{!-- <input type="text" class="form-control" id="InputCategory" name="category"> --}}
+                  <select class="form-control" id="InputCategory" name="category">
+                    <option value="Art">Art</option>
+                    <option value="Autobiography">Autobiography</option>
+                    <option value="Biography">Biography</option>
+                    <option value="Chick">Chick Lit</option>
+                    <option value="Comming-Of-Age">Comming-Of-Age</option>
+                    <option value="Anthology">Anthology</option>
+                    <option value="Drama">Drama</option>
+                    <option value="Crime">Crime</option>
+                    <option value="Dictionary">Dictionary</option>
+                    <option value="Health">Health</option>
+                    <option value="History">History</option>
+                    <option value="Hornor">Hornor</option>
+                    <option value="Poetry">Poetry</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="InputLinkCover1">Link cover1</label>
+                  <input type="file" class="form-control" id="InputCover1" name="cover1" multiple="multiple">
+                </div>
+                <div class="form-group">
+                  <label for="InputLinkCover2">Link cover2</label>
+                  <input type="file" class="form-control" id="InputCover2" name="cover2" multiple="multiple">
+                </div>
+                <div class="form-group">
+                  <label for="InputLinkCover3">Link cover3</label>
+                  <input type="file" class="form-control" id="InputCover3" name="cover3" multiple="multiple">
+                </div>
+                <div class="form-group">
+                  <label for="InputPrice">Price</label>
+                  <input type="text" class="form-control" id="InputPrice" name="basePrice">
+                </div>
+                <div class="form-group">
+                  <label for="InputDescription">Description</label>
+                  <textarea class="form-control" id="InputDescription" name="description"></textarea>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-success">Save</button>
               </div>
             </div>
-            {{!-- Add --}}
-            <form action="/books/add" method="POST" enctype="multipart/form-data">
-              <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">New book</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <div class="form-group">
-                        <label for="InputName">Name</label>
-                        <input type="text" class="form-control" id="InputName" name="name">
-                      </div>
-                      <div class="form-group">
-                        <label for="InputCategory">Category</label>
-                        {{!-- <input type="text" class="form-control" id="InputCategory" name="category"> --}}
-                        <select class="form-control" id="InputCategory" name="category">
-                          <option value="Art">Art</option>
-                          <option value="Autobiography">Autobiography</option>
-                          <option value="Biography">Biography</option>
-                          <option value="Chick">Chick Lit</option>
-                          <option value="Comming-Of-Age">Comming-Of-Age</option>
-                          <option value="Anthology">Anthology</option>
-                          <option value="Drama">Drama</option>
-                          <option value="Crime">Crime</option>
-                          <option value="Dictionary">Dictionary</option>
-                          <option value="Health">Health</option>
-                          <option value="History">History</option>
-                          <option value="Hornor">Hornor</option>
-                          <option value="Poetry">Poetry</option>
-                        </select>
-                      </div>
-                      <div class="form-group">
-                        <label for="InputLinkCover1">Link cover1</label>
-                        <input type="file" class="form-control" id="InputCover1" name="cover1" multiple="multiple">
-                      </div>
-                      <div class="form-group">
-                        <label for="InputLinkCover2">Link cover2</label>
-                        <input type="file" class="form-control" id="InputCover2" name="cover2" multiple="multiple">
-                      </div>
-                      <div class="form-group">
-                        <label for="InputLinkCover3">Link cover3</label>
-                        <input type="file" class="form-control" id="InputCover3" name="cover3" multiple="multiple">
-                      </div>
-                      <div class="form-group">
-                        <label for="InputPrice">Price</label>
-                        <input type="text" class="form-control" id="InputPrice" name="basePrice">
-                      </div>
-                      <div class="form-group">
-                        <label for="InputDescription">Description</label>
-                        <textarea class="form-control" id="InputDescription" name="description"></textarea>
-                      </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                      <button type="submit" class="btn btn-success">Save</button>
-                    </div>
+          </div>
+      </form>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="booksTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>
+                <input type="text" class="form-control" placeholder="Name" id="filterName">
+              </th>
+              <th>
+                <select id="filterCategory" class="form-control" name="category">
+                  <option value="">All categories</option>
+                  {{#each categories}}
+                  <option value="{{this}}">{{this}}</option>
+                  {{/each}}
+                </select>
+              </th>
+              <th style="width: 20%;">
+                <input type="text" class="form-control half left" placeholder="min" id="filterMinPrice">
+                <input type="text" class="form-control half right" placeholder="max" id="filterMaxPrice">
+              </th>
+              <th>
+                <div class="d-flex justify-content-center">
+                  <button class="btn btn-dark btn-xs btn-filter " id="btnFilterBook">Filter</button>
+                </div>
+              </th>
+            </tr>
+            <tr>
+              <th width="50%">Name</th>
+              <th width="30%">Category</th>
+              <th width="10%">Price</th>
+              <th width="10%">Edit</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th width="50%">Name</th>
+              <th width="30%">Category</th>
+              <th width="10%">Price</th>
+              <th width="10%">Edit</th>
+            </tr>
+          </tfoot>
+          <tbody id="bodyBooksTable">
+            {{#each books}}
+            <tr>
+              <td width="50%">{{name}}</td>
+              <td width="30%">{{category}}</td>
+              <td width="10%">{{basePrice}}</td>
+              <td width="10%">
+                <div class="d-flex justify-content-center">
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editBookModal"
+                    data-id={{_id}} data-name="{{name}}" data-firstcover={{cover.[0]}} data-secondcover={{cover.[1]}}
+                    data-thirdcover={{cover.[2]}} data-category="{{category}}" data-categoryid={{categoryID}}
+                    data-price={{basePrice}} data-description="{{description}}">
+                    Edit
+                  </button>
+                </div>
+              </td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+        <div class="modal fade" id="editBookModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              {{!-- Update --}}
+              <form action="/books/update" method="POST">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Edit Book</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="form-group">
+                    <input id="bookID" name="id" hidden>
+                  </div>
+                  <div class="form-group">
+                    <input id="categoryID" name="categoryID" hidden>
+                  </div>
+                  <div class="form-group">
+                    <label for="InputName">Name</label>
+                    <input type="text" class="form-control" id="InputName" placeholder="Name" name="newName">
+                  </div>
+                  <div class="form-group">
+                    <label for="InputCategory">Category</label>
+                    <input type="text" class="form-control" id="InputCategory" placeholder="Category"
+                      name="newCategory">
+                  </div>
+                  <div class="form-group">
+                    <label for="InputCover1">Link cover1</label>
+                    <input type="text" class="form-control" id="InputCover1" placeholder="Link cover1"
+                      multiple="multiple" name="newCover1">
+                  </div>
+                  <div class="form-group">
+                    <label for="InputCover2">Link cover1</label>
+                    <input type="text" class="form-control" id="InputCover2" placeholder="Link cover2"
+                      multiple="multiple" name="newCover2">
+                  </div>
+                  <div class="form-group">
+                    <label for="InputCover3">Link cover1</label>
+                    <input type="text" class="form-control" id="InputCover3" placeholder="Link cover3"
+                      multiple="multiple" name="newCover3">
+                  </div>
+                  <div class="form-group">
+                    <label for="InputPrice">Price</label>
+                    <input type="text" class="form-control" id="InputPrice" placeholder="Price" name="newBasePrice">
+                  </div>
+                  <div class="form-group">
+                    <label for="InputDescription">Description</label>
+                    <textarea type="text" class="form-control" id="InputDescription" placeholder="Description"
+                      name="newDescription"></textarea>
                   </div>
                 </div>
-            </form>
-          </div>
-          <div class="card-body">
-            <div class="table-responsive filterable">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                  <tr class="filters">
-                    <th><input type="text" class="form-control" placeholder="Name" disabled></th>
-                    <th><input type="text" class="form-control" placeholder="Category" disabled></th>
-                    <th><input type="text" class="form-control" placeholder="Price" disabled></th>
-                    <th><button class="btn btn-dark btn-xs btn-filter">Search</button></th>
-                  </tr>
-                  <tr>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>Price</th>
-                    <th>Edit</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {{#each Books}}
-                  <tr>
-                    <td>{{name}}</td>
-                    <td>{{category}}</td>
-                    <td>{{basePrice}}</td>
-                    <td>
-                      <div class="d-flex justify-content-center">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editBookModal"
-                          data-id={{_id}} data-name="{{name}}" data-firstcover={{cover.[0]}}
-                          data-secondcover={{cover.[1]}} data-thirdcover={{cover.[2]}} data-category="{{category}}"
-                          data-categoryid={{categoryID}} data-price={{basePrice}} data-description="{{description}}">
-                          Edit
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                  {{/each}}
-                  <!-- Modal -->
-
-                  <div class="modal fade" id="editBookModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        {{!-- Update --}}
-                        <form action="/books/update" method="POST">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Edit Book</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            <div class="form-group">
-                              <input id="bookID" name="id" hidden>
-                            </div>
-                            <div class="form-group">
-                              <input id="categoryID" name="categoryID" hidden>
-                            </div>
-                            <div class="form-group">
-                              <label for="InputName">Name</label>
-                              <input type="text" class="form-control" id="InputName" placeholder="Name" name="newName">
-                            </div>
-                            <div class="form-group">
-                              <label for="InputCategory">Category</label>
-                              <input type="text" class="form-control" id="InputCategory" placeholder="Category"
-                                name="newCategory">
-                            </div>
-                            <div class="form-group">
-                              <label for="InputCover1">Link cover1</label>
-                              <input type="text" class="form-control" id="InputCover1" placeholder="Link cover1"
-                                multiple="multiple" name="newCover1">
-                            </div>
-                            <div class="form-group">
-                              <label for="InputCover2">Link cover1</label>
-                              <input type="text" class="form-control" id="InputCover2" placeholder="Link cover2"
-                                multiple="multiple" name="newCover2">
-                            </div>
-                            <div class="form-group">
-                              <label for="InputCover3">Link cover1</label>
-                              <input type="text" class="form-control" id="InputCover3" placeholder="Link cover3"
-                                multiple="multiple" name="newCover3">
-                            </div>
-                            <div class="form-group">
-                              <label for="InputPrice">Price</label>
-                              <input type="text" class="form-control" id="InputPrice" placeholder="Price"
-                                name="newBasePrice">
-                            </div>
-                            <div class="form-group">
-                              <label for="InputDescription">Description</label>
-                              <textarea type="text" class="form-control" id="InputDescription" placeholder="Description"
-                                name="newDescription"></textarea>
-                            </div>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="submit" formaction="/books/delete" class="btn btn-danger">Delete</button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                </tbody>
-              </table>
+                <div class="modal-footer">
+                  <button type="submit" formaction="/books/delete" class="btn btn-danger">Delete</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
-      <!-- /.container-fluid -->
-
     </div>
-    <!-- End of Main Content -->
+  </div>
+</div>
+<!-- /.container-fluid -->
 
+</div>
+<!-- End of Main Content -->
+<script src="js/filterBooks.js"></script>

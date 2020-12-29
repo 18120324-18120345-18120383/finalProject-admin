@@ -16,3 +16,7 @@ exports.findBooksByCategory = async (req, res, next) => {
     const listBook = await books.findBooksByCategory(req.query.category);
     res.json(listBook)
 }
+exports.allUsers = async (req, res, next) => {
+    const listUser = await users.getListAccount();
+    res.json(listUser)
+}
