@@ -16,7 +16,7 @@
         </div>
       </div>
       {{!-- Add --}}
-      <form action="/books/add" method="POST" enctype="multipart/form-data">
+      <form action="/books/add" method="POST">
         <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
           aria-hidden="true">
           <div class="modal-dialog" role="document">
@@ -30,12 +30,12 @@
               <div class="modal-body">
                 <div class="form-group">
                   <label for="InputName">Name</label>
-                  <input type="text" class="form-control" id="InputName" name="name">
+                  <input type="text" class="form-control" id="InputName" name="name" required>
                 </div>
                 <div class="form-group">
                   <label for="InputCategory">Category</label>
                   {{!-- <input type="text" class="form-control" id="InputCategory" name="category"> --}}
-                  <select class="form-control" id="InputCategory" name="category">
+                  <select class="form-control" id="InputCategory" name="category" required>
                     <option value="Art">Art</option>
                     <option value="Autobiography">Autobiography</option>
                     <option value="Biography">Biography</option>
@@ -52,24 +52,24 @@
                   </select>
                 </div>
                 <div class="form-group">
-                  <label for="InputLinkCover1">Link cover1</label>
-                  <input type="file" class="form-control" id="InputCover1" name="cover1" multiple="multiple">
+                  <label for="fileAddCover1">Cover 1</label>
+                  <input type="file" class="form-control filepond" id="fileAddCover1" name="cover1">
                 </div>
                 <div class="form-group">
-                  <label for="InputLinkCover2">Link cover2</label>
-                  <input type="file" class="form-control" id="InputCover2" name="cover2" multiple="multiple">
+                  <label for="fileAddCover2">Cover 2</label>
+                  <input type="file" class="form-control filepond" id="fileAddCover2" name="cover2">
                 </div>
                 <div class="form-group">
-                  <label for="InputLinkCover3">Link cover3</label>
-                  <input type="file" class="form-control" id="InputCover3" name="cover3" multiple="multiple">
+                  <label for="fileAddCover3">Cover 3</label>
+                  <input type="file" class="form-control filepond" id="fileAddCover3" name="cover3">
                 </div>
                 <div class="form-group">
                   <label for="InputPrice">Price</label>
-                  <input type="text" class="form-control" id="InputPrice" name="basePrice">
+                  <input type="text" class="form-control" id="InputPrice" name="basePrice" required>
                 </div>
                 <div class="form-group">
                   <label for="InputDescription">Description</label>
-                  <textarea class="form-control" id="InputDescription" name="description"></textarea>
+                  <textarea class="form-control" id="InputDescription" name="description" required></textarea>
                 </div>
               </div>
               <div class="modal-footer">
@@ -170,7 +170,7 @@
                       name="newCategory">
                   </div>
                   <div class="form-group">
-                    <label for="InputCover1">Link cover1</label>
+                    <label for="InputCover1" style="width: 100px; heigh: 100px">Link cover1</label>
                     <input type="text" class="form-control" id="InputCover1" placeholder="Link cover1"
                       multiple="multiple" name="newCover1">
                   </div>

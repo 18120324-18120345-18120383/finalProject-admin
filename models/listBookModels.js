@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 
 const bookSchema = new Schema({
     name : String,
-    cover: [String],
+    covers: [String],
+    coverTypes: [String],
     category: String,
     categoryID: ObjectID,
     basePrice: Number,
