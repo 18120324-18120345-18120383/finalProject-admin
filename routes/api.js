@@ -6,7 +6,6 @@ router.use(express.static('public'));
 
 router.get('/authenticate-password',controllerService.authenPassword);
 router.get('/all-books', controllerService.allBooks);
-router.get('/find-books-by-category', controllerService.findBooksByCategory);
 router.get('/all-users', controllerService.allUsers);
 
 module.exports = router;

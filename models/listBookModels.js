@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 
 const bookSchema = new Schema({
     name : String,
-    covers: [String],
+    covers: [Buffer],
+    coversString: [String],
     coverTypes: [String],
     category: String,
     categoryID: ObjectID,

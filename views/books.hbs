@@ -53,15 +53,21 @@
                 </div>
                 <div class="form-group">
                   <label for="fileAddCover1">Cover 1</label>
-                  <input type="file" class="form-control filepond" id="fileAddCover1" name="cover1">
+                  <div style="width: 200px; heigh: 200px; margin: auto">
+                    <input type="file" class="form-control filepond" id="fileAddCover1" name="cover1">
+                  </div>
                 </div>
                 <div class="form-group">
                   <label for="fileAddCover2">Cover 2</label>
-                  <input type="file" class="form-control filepond" id="fileAddCover2" name="cover2">
+                  <div style="width: 200px; heigh: 200px; margin: auto">
+                    <input type="file" class="form-control filepond" id="fileAddCover2" name="cover2">
+                  </div>
                 </div>
                 <div class="form-group">
                   <label for="fileAddCover3">Cover 3</label>
-                  <input type="file" class="form-control filepond" id="fileAddCover3" name="cover3">
+                  <div style="width: 200px; heigh: 200px; margin: auto">
+                    <input type="file" class="form-control filepond" id="fileAddCover3" name="cover3">
+                  </div>
                 </div>
                 <div class="form-group">
                   <label for="InputPrice">Price</label>
@@ -130,8 +136,9 @@
               <td width="10%">
                 <div class="d-flex justify-content-center">
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editBookModal"
-                    data-id={{_id}} data-name="{{name}}" data-firstcover={{cover.[0]}} data-secondcover={{cover.[1]}}
-                    data-thirdcover={{cover.[2]}} data-category="{{category}}" data-categoryid={{categoryID}}
+                    data-id={{_id}} data-name="{{name}}" data-firstcovertype="{{coverTypes.[0]}}" data-secondcovertype="{{coverTypes.[1]}}"
+                    data-thirdcovertype="{{coverTypes.[2]}}" data-firstcoverstring="{{coversString.[0]}}" data-secondcoverstring="{{coversString.[1]}}"
+                    data-thirdcoverstring="{{coversString.[2]}}" data-category="{{category}}" data-categoryid={{categoryID}}
                     data-price={{basePrice}} data-description="{{description}}">
                     Edit
                   </button>
@@ -170,19 +177,31 @@
                       name="newCategory">
                   </div>
                   <div class="form-group">
-                    <label for="InputCover1" style="width: 100px; heigh: 100px">Link cover1</label>
-                    <input type="text" class="form-control" id="InputCover1" placeholder="Link cover1"
-                      multiple="multiple" name="newCover1">
+                    <label for="fileAddCover1">Cover 1</label>
+                    <div style="width: 200px; heigh: 200px; margin: auto" id="imgCover1">
+                      <!-- imgCover1 here -->
+                    </div>
+                    <div style="width: 200px; heigh: 200px; margin: auto">
+                      <input type="file" class="form-control filepond" id="newCover1" name="newCover1">
+                    </div>
                   </div>
                   <div class="form-group">
-                    <label for="InputCover2">Link cover1</label>
-                    <input type="text" class="form-control" id="InputCover2" placeholder="Link cover2"
-                      multiple="multiple" name="newCover2">
+                    <label for="fileAddCover2">Cover 2</label>
+                    <div style="width: 200px; heigh: 200px; margin: auto" id="imgCover2">
+                      <!-- imgCover2 here -->
+                    </div>
+                    <div style="width: 200px; heigh: 200px; margin: auto">
+                      <input type="file" class="form-control filepond" id="newCover2" name="newCover2">
+                    </div>
                   </div>
                   <div class="form-group">
-                    <label for="InputCover3">Link cover1</label>
-                    <input type="text" class="form-control" id="InputCover3" placeholder="Link cover3"
-                      multiple="multiple" name="newCover3">
+                    <label for="fileAddCover3">Cover 3</label>
+                    <div style="width: 200px; heigh: 200px; margin: auto" id="imgCover3">
+                      <!-- imgCover3 here -->
+                    </div>
+                    <div style="width: 200px; heigh: 200px; margin: auto">
+                      <input type="file" class="form-control filepond" id="newCover3" name="newCover3">
+                    </div>
                   </div>
                   <div class="form-group">
                     <label for="InputPrice">Price</label>

@@ -9,11 +9,12 @@ exports.authenPassword = async (req, res, next) => {
 }
 
 exports.allBooks = async (req, res, next) => {
+    console.log("[api] Loading books...")
+
     const listBook = await books.listBook();
-    res.json(listBook)
-}
-exports.findBooksByCategory = async (req, res, next) => {
-    const listBook = await books.findBooksByCategory(req.query.category);
+
+    console.log("[api] Load books successfully!")
+
     res.json(listBook)
 }
 exports.allUsers = async (req, res, next) => {

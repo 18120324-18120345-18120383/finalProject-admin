@@ -42,7 +42,7 @@ btnFilterBook.onclick = () => {
 
         bodyBooksTable.innerHTML = ''
         books.forEach(book => {
-            bodyBooksTable.insertAdjacentHTML('beforeend', `
+            let stringHTML = `
             <tr>
               <td>`+book.name+`</td>
               <td>`+book.category+`</td>
@@ -50,14 +50,27 @@ btnFilterBook.onclick = () => {
               <td>
                 <div class="d-flex justify-content-center">
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editBookModal"
-                    data-id=`+book._id+` data-name="`+book.name+`" data-firstcover=`+book.cover[0]+`
-                    data-secondcover=`+book.cover[1]+` data-thirdcover=`+book.cover[2]+` data-category="`+book.category+`"
-                    data-categoryid=`+book.categoryID+` data-price=`+book.basePrice+` data-description="`+book.description+`">
+                    data-id=`+book._id+` data-name="`+book.name+`" ` + `data-category="`+book.category+`"
+                    data-categoryid=`+book.categoryID+` data-price=`+book.basePrice+` data-description="`+book.description+`" `
+            if (book.coverString) {
+                if (book.coverString[0]){
+                    stringHTML += `data-firstcoverstring=`+book.coversString[0]+`" data-firstcovertype="` + book.coverTypes[0]+`" `
+                }
+                if (book.coverString[1]){
+                    stringHTML += `data-firstcoverstring=`+book.coversString[1]+`" data-firstcovertype="` + book.coverTypes[1]+`" `
+                }
+                if (book.coverString[2]){
+                    stringHTML += `data-firstcoverstring=`+book.coversString[2]+`" data-firstcovertype="` + book.coverTypes[2]+`" `
+                }
+            }
+            stringHTML += 
+                    `>
                     Edit
                   </button>
                 </div>
               </td>
-            </tr>`) 
+            </tr>`
+            bodyBooksTable.insertAdjacentHTML('beforeend', stringHTML)
         });
         
         $(document).ready(function() {
