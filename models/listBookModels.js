@@ -4,7 +4,6 @@ const Schema = mongoose.Schema;
 
 const bookSchema = new Schema({
     name : String,
-    covers: [Buffer],
     coversString: [String],
     coverTypes: [String],
     category: String,
@@ -31,9 +30,7 @@ module.exports.updateBook = async (filter, update) => {
 } 
 
 module.exports.listBook = async () => {
-    const books = await Book.find({
-
-    });
+    const books = await Book.find();
     return books;
 }
 
@@ -45,20 +42,6 @@ module.exports.getOneBook = async (id) => {
 module.exports.searchBook = async (nameBook) => {
     const books = await Book.find({name : { "$regex": nameBook, "$options": "i" }}).exec();
     return books;
-}
-
-module.exports.listCategory = async () => {
-    const books = await Book.find();
-    let categories = [];
-    books.forEach(book => {
-        const isExist = categories.find((category) => {
-            return category == book.category
-        })
-        if (isExist === undefined) {
-            categories.push(book.category)
-        }
-    });
-    return categories;
 }
 
 module.exports.findBooksByCategory = async (category) => {

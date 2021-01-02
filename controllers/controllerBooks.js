@@ -19,7 +19,15 @@ exports.books = async (req, res, next) => {
 
     console.log("Loading categories")
 
-    let categories = await Book.listCategory();
+    let categories = [];
+    books.forEach(book => {
+        const isExist = categories.find((category) => {
+            return category == book.category
+        })
+        if (isExist === undefined) {
+            categories.push(book.category)
+        }
+    });
 
     console.log("Load categories successfully!")
 
@@ -91,13 +99,12 @@ exports.addBook = async (req, res, next) => {
     let temp = saveCovers(coversEncoded)
 
     if (temp) {
-        book.covers = temp.covers;
         book.coverTypes = temp.coverTypes;
         book.coversString = temp.coversString;
     }
 
     try {
-        Book.addOneBook(book);
+        await Book.addOneBook(book);
         res.redirect('/books');
     }
     catch (err) {
@@ -105,24 +112,24 @@ exports.addBook = async (req, res, next) => {
     }
 }
 const saveCovers = (coversEncoded) => {
-    let covers = []
     let coverTypes = []
     let coversString = []
     coversEncoded.forEach(coverEncoded => {
-        if (!coverEncoded) return false;
+        if (!coverEncoded) {
+            coverTypes.push(null)
+            coversString.push(null)
+            return;
+        }
 
         const coverJSON = JSON.parse(coverEncoded)
         if (coverJSON != null) {
-            let cover = new Buffer.from(coverJSON.data, 'base64');
+            let coverString = coverJSON.data;
             let coverType = coverJSON.type;
-            let coverString = cover.toString('base64')
-            covers.push(cover)
             coverTypes.push(coverType)
             coversString.push(coverString)
         }
     });
     return {
-        covers,
         coverTypes,
         coversString
     }
@@ -192,13 +199,22 @@ exports.updateBook = async (req, res, next) => {
     let temp = saveCovers(coversEncoded)
 
     if (temp) {
-        update.covers = temp.covers;
-        update.coverTypes = temp.coverTypes;
-        update.coversString = temp.coversString;
+        const book = await Book.getOneBook(id)
+        update.coversString = []
+        update.coverTypes = []
+        for (let i = 0; i < 3; i++){
+            if (!temp.coversString[i]){
+                update.coversString.push(book.coversString[i])
+                update.coverTypes.push(book.coverTypes[i])
+            } else {
+                update.coversString.push(temp.coversString[i])
+                update.coverTypes.push(temp.coverTypes[i])
+            }
+        }
     }
 
     try {
-        Book.updateBook(filter, update);
+        await Book.updateBook(filter, update);
         res.redirect('/books');
     }
     catch (err) {
