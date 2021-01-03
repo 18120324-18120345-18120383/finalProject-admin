@@ -10,11 +10,13 @@ const userSchema = new Schema({
     password: String,
     firstName : String,
     lastName: String,
-    avatar: String,
+    avatar: Buffer,
+    avatarType: String,
     email: String,
     phoneNumber: String,
     more: String,
     cartID: String,
+    orderID: [String],
     isActive: Boolean
 })
 

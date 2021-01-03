@@ -12,6 +12,7 @@ const bodyParser = require("body-parser");
 const indexRouter = require('./routes/index');
 const booksRouter = require('./routes/books');
 const userRouter = require('./routes/users');
+const cartsRouter = require('./routes/carts');
 const apiRouter = require('./routes/api')
 
 const app = express();
@@ -48,6 +49,7 @@ app.use(function (req, res, next) {
 app.use('/', indexRouter);
 app.use('/books', checkAuthenticated, booksRouter)
 app.use('/users-account', checkAuthenticated, userRouter)
+app.use('/carts', checkAuthenticated, cartsRouter)
 app.use('/api', checkAuthenticated, apiRouter)
 
 // catch 404 and forward to error handler

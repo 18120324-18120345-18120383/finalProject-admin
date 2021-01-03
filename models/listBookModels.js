@@ -9,7 +9,9 @@ const bookSchema = new Schema({
     category: String,
     categoryID: ObjectID,
     basePrice: Number,
-    description: String
+    description: String,
+    views: Number,
+    buyCount: Number
 })
 
 const Book = mongoose.model('list-books', bookSchema);
