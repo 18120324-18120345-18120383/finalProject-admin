@@ -7,5 +7,6 @@ router.use(express.static('public'));
 router.get('/authenticate-password',controllerService.authenPassword);
 router.get('/all-books', controllerService.allBooks);
 router.get('/all-users', controllerService.allUsers);
+router.get('/find-cover-by-id', controllerService.findCoverById);
 
 module.exports = router;

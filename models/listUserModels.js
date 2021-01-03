@@ -20,8 +20,8 @@ const userSchema = new Schema({
 
 const User = mongoose.model('list-users', userSchema);
 
-module.exports.getListAccount = async () => {
-    const users = await User.find({});
+module.exports.getListAccount = async (filter = null) => {
+    const users = await User.find(filter);
     return users;
 }
 module.exports.changeIsActiveById = async (id, isActive) =>{

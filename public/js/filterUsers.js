@@ -12,6 +12,11 @@ btnFilterUser.onclick = () => {
     let filterFirstName = firstName.value;
     let filterLastName = lastName.value;
     let filterActive = active.value;
+    let filter = {}
+    if (filterActive != ""){
+        let isActive = (filterActive === 'true')
+        filter.isActive = isActive
+    }
     $.getJSON('/api/all-users', {}, (data) => {
         let users = [];
         data.forEach(user => {

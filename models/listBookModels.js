@@ -29,8 +29,11 @@ module.exports.updateBook = async (filter, update) => {
     return book;
 } 
 
-module.exports.listBook = async () => {
-    const books = await Book.find();
+module.exports.listBook = async (filter = null) => {
+    const books = await Book.find(filter, {
+        coverTypes: 0,
+        coversString: 0
+    });
     return books;
 }
 

@@ -10,24 +10,32 @@ btnFilterBook.onclick = () => {
     let filterMaxPrice = maxPrice.value;
     let filterMinPrice = minPrice.value;
     let filterName = name.value;
-    $.getJSON('/api/all-books', {}, (data) => {
+    const filter = {}
+    if (filterCategory != ""){
+        filter.category = filterCategory
+    }
+    if (filterMaxPrice != ""){ //have max price condition
+        if (filterMinPrice != ""){ //have max price and min price condition
+            filter.basePrice = {
+                $gt: filterMinPrice,
+                $lt: filterMaxPrice
+            }
+        } else { //have max price condition and do not have min price condition
+            filter.basePrice = {
+                $lt: filterMaxPrice
+            }
+        }
+    } else if ( filterMinPrice != "") { //do not have max price condition and have min price condition
+        if (filterMaxPrice == "") {
+            filter.basePrice = {
+                $gt: filterMinPrice
+            }
+        }
+    }
+
+    $.getJSON('/api/all-books', {filter}, (data) => {
         let books = [];
         data.forEach(book => {
-            if (filterCategory != ""){
-                if (book.category != filterCategory){
-                    return;
-                }
-            }
-            if (filterMinPrice != ""){
-                if (book.basePrice < filterMinPrice){
-                    return;
-                }
-            }
-            if (filterMaxPrice != ""){
-                if (book.basePrice > filterMaxPrice){
-                    return;
-                }
-            }
             if (filterName != "") {
                 if (!book.name.includes(filterName)){
                     return;

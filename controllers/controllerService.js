@@ -11,13 +11,27 @@ exports.authenPassword = async (req, res, next) => {
 exports.allBooks = async (req, res, next) => {
     console.log("[api] Loading books...")
 
-    const listBook = await books.listBook();
+    const filter = req.query.filter
+
+    const listBook = await books.listBook(filter);
 
     console.log("[api] Load books successfully!")
 
     res.json(listBook)
 }
 exports.allUsers = async (req, res, next) => {
-    const listUser = await users.getListAccount();
+    const filter = req.query.filter
+
+    const listUser = await users.getListAccount(filter);
     res.json(listUser)
+}
+exports.findCoverById = async (req, res, next) => {
+    const id = req.query.id;
+
+    const book = await books.getOneBook(id)
+
+    const coversString = book.coversString;
+    const coverTypes = book.coverTypes;
+
+    res.json({coversString, coverTypes})
 }
