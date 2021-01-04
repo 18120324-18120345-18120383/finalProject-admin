@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const listCategory = require('../models/categoryModels');
 const { ObjectID } = require('mongodb');
 
 const Book = require('../models/listBookModels')
@@ -24,6 +23,7 @@ exports.books = async (req, res, next) => {
     listCategory.forEach(category => {
         categories.push(category.name)
     });
+    console.log(categories)
 
     console.log("Load categories successfully!")
 
