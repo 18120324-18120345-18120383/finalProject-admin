@@ -42,36 +42,64 @@
               </tr>
               <tr>
                 <th width="20%">ID</th>
-                <th width="20%">Order Date</th>
+                <th width="15%">Order Date</th>
+                {{#if finished}}
+                <th width="15%">Finished Date</th>
+                {{/if}}
                 <th width="30%">Address</th>
-                <th width="20%">Total Price</th>
-                <th width="10%">Detail</th>
+                <th width="15%">Total Price</th>
+                <th width="5%">Detail</th>
+                {{#if delivering}}
+                <th></th>
+                {{/if}}
               </tr>
             </thead>
             <tfoot>
               <tr>
                 <th width="20%">ID</th>
-                <th width="20%">Order Date</th>
+                <th width="15%">Order Date</th>
+                {{#if finished}}
+                <th width="15%">Finished Date</th>
+                {{/if}}
                 <th width="30%">Address</th>
-                <th width="20%">Total Price</th>
-                <th width="10%">Detail</th>
+                <th width="15%">Total Price</th>
+                <th width="5%">Detail</th>
+                {{#if delivering}}
+                <th></th>
+                {{/if}}
               </tr>
             </tfoot>
             <tbody id="bodyBooksTable">
               {{#each carts}}
               <tr>
                 <td width="20%">{{_id}}</td>
-                <td width="20%">{{orderDate}}</td>
+                <td width="15%">{{orderDate}}</td>
+                {{#if finishedDate}}
+                <td width="15%">{{finishedDate}}</td>
+                {{/if}}
                 <td width="30%">{{fullAddress}}</td>
-                <td width="20%">{{total}}</td>
-                <td width="10%">
+                <td width="15%">{{total}}</td>
+                <td width="5%">
                   <button onclick="detailOfCart()" type="button" class="btn btn-link">Detail</button>
                   <script>
                     const detailOfCart = () => {
-                      window.open("https://www.google.com");
+                      let url = "http://127.0.0.1:2000/carts/detail?id=" + "{{_id}}"
+                      window.open(url);
                     }
                   </script>
                 </td>
+                {{#if orderDate}}
+                {{#if finishedDate}}
+                {{else}}
+                <td width="10%">
+                  <form action="/carts/finish-cart" method="POST" id="finishCartForm">
+                    <input type="text" value="{{_id}}" name="id" hidden>
+                    <button type="submit" class="btn btn-success">Finish</button>
+                  </form>
+
+                </td>
+                {{/if}}
+                {{/if}}
               </tr>
               {{/each}}
             </tbody>

@@ -1,0 +1,55 @@
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Cart detail</h1>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <div class="card-body">
+                <div>
+                    <p><strong>ID:</strong> {{cart._id}}</p>
+                    <p><strong>Order date:</strong> {{cart.orderDate}}</p>
+                    <p><strong>Finished date:</strong> {{cart.finishedDate}}</p>
+                    <p><strong>Address:</strong> {{cart.fullAddress}}</p>
+                    <p><strong>Total price:</strong> {{cart.total}}</p>
+                </div>
+                <br><hr><br>
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="booksTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th width="50%">Name</th>
+                                <th width="20%">Price</th>
+                                <th width="10%">Quantity</th>
+                                <th width="20%">Total Price</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th width="50%">Name</th>
+                                <th width="20%">Price</th>
+                                <th width="10%">Quantity</th>
+                                <th width="20%">Total Price</th>
+                            </tr>
+                        </tfoot>
+                        <tbody id="bodyBooksTable">
+                            {{#each products}}
+                            <tr>
+                                <td width="50%">{{name}}</td>
+                                <td width="20%">{{price}}</td>
+                                <td width="10%">{{quantity}}</td>
+                                <td width="20%">{{total}}</td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+
+</div>
+<!-- End of Main Content -->
