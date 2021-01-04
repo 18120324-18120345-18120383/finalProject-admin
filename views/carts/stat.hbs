@@ -1,0 +1,70 @@
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">Carts</h1>
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <div class="row">
+        <div class="col-sm-11">
+          <h6 class="m-0 font-weight-bold text-primary">Stat</h6>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered" id="booksTable" width="100%" cellspacing="0">
+            <thead>
+              <tr>
+                {{#if days}}<th>Date</th>{{/if}}
+                {{#if months}}<th>Month</th>{{/if}}
+                {{#if years}}<th>Year</th>{{/if}}
+                {{#if quarters}}<th>Quarter</th>{{/if}}
+                <th>Total income</th>
+                <th>Top 10 Best Seller</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                {{#if days}}<th>Date</th>{{/if}}
+                {{#if months}}<th>Month</th>{{/if}}
+                {{#if years}}<th>Year</th>{{/if}}
+                {{#if quarters}}<th>Quarter</th>{{/if}}
+                <th>Total income</th>
+                <th>Top 10 Best Seller</th>
+              </tr>
+            </tfoot>
+            <tbody id="bodyBooksTable">
+              <tr>
+                {{#each days}}
+                <td>{{orderDate}}</td>
+                <td>{{totalIncome}}</td>
+                {{/each}}
+                {{#each months}}
+                <td>{{orderDate}}</td>
+                <td>{{totalIncome}}</td>
+                {{/each}}
+                {{#each years}}
+                <td>{{orderDate}}</td>
+                <td>{{totalIncome}}</td>
+                {{/each}}
+                {{#each quarters}}
+                <td>{{orderDate}}</td>
+                <td>{{totalIncome}}</td>
+                {{/each}}
+                <td>
+                  <button class="btn btn-link">View Top 10</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+
+</div>
+<!-- End of Main Content -->

@@ -57,3 +57,112 @@ exports.finishCart = async (req, res, next) => {
         res.redirect('/carts/delivering')
     }
 }
+exports.statByDay = async (req, res, next) => {
+    let carts = await listCarts.findCart({status: 1})
+    carts = carts.concat(await listCarts.findCart({status: 2}))
+    let days = []
+    carts.forEach(cart => {
+
+        let orderDate = cart.orderDate.getDate() + ' - '
+        orderDate += (cart.orderDate.getMonth() + 1) + ' - '
+        orderDate += cart.orderDate.getFullYear()
+
+        let index = days.findIndex((day) => day.orderDate === orderDate)
+        if (index != -1){
+            days[index].totalIncome += cart.total;
+        } else {
+            let newDay = {
+                totalIncome: cart.total,
+                orderDate: orderDate
+            }
+            days.push(newDay)
+        }
+    });
+    res.render('carts/stat', {
+        title: "Stat By Day",
+        days
+    })
+}
+exports.statByMonth = async (req, res, next) => {
+    let carts = await listCarts.findCart({status: 1})
+    carts = carts.concat(await listCarts.findCart({status: 2}))
+    let months = []
+    carts.forEach(cart => {
+        let orderDate = (cart.orderDate.getMonth() + 1) + ' - '
+        orderDate += cart.orderDate.getFullYear()
+
+        let index = months.findIndex((month) => month.orderDate === orderDate)
+        if (index != -1){
+            months[index].totalIncome += cart.total;
+        } else {
+            let newMonth = {
+                totalIncome: cart.total,
+                orderDate: orderDate
+            }
+            months.push(newMonth)
+        }
+    });
+
+    res.render('carts/stat', {
+        title: "Stat By Month",
+        months
+    })
+}
+exports.statByYear = async (req, res, next) => {
+    let carts = await listCarts.findCart({status: 1})
+    carts = carts.concat(await listCarts.findCart({status: 2}))
+    let years = []
+    carts.forEach(cart => {
+        let orderDate = cart.orderDate.getFullYear()
+
+        let index = years.findIndex((year) => year.orderDate === orderDate)
+        if (index != -1){
+            years[index].totalIncome += cart.total;
+        } else {
+            let newYear = {
+                totalIncome: cart.total,
+                orderDate: orderDate
+            }
+            years.push(newYear)
+        }
+    });
+    res.render('carts/stat', {
+        title: "Stat By Year",
+        years
+    })
+}
+exports.statByQuarter = async (req, res, next) => {
+    let carts = await listCarts.findCart({status: 1})
+    carts = carts.concat(await listCarts.findCart({status: 2}))
+    const quarters = []
+    carts.forEach(cart => {
+        let orderDate = monthToQuarter(cart.orderDate.getMonth()) + ' - '
+        orderDate += cart.orderDate.getFullYear()
+
+        let index = quarters.findIndex((quarter) => quarter.orderDate === orderDate)
+        if (index != -1){
+            quarters[index].totalIncome += cart.total;
+        } else {
+            let newQuarter = {
+                totalIncome: cart.total,
+                orderDate: orderDate
+            }
+            quarters.push(newQuarter)
+        }
+    });
+    res.render('carts/stat', {
+        title: "Stat By Quarter",
+        quarters
+    })
+}
+function monthToQuarter(month){
+    if (month < 3) {
+        return 'I'
+    } else if (month < 6) {
+        return 'II'
+    } else if (month < 9) {
+        return 'III'
+    } else {
+        return 'IV'
+    }
+}
