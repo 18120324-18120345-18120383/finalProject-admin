@@ -59,7 +59,7 @@ btnFilterBook.onclick = () => {
                 <div class="d-flex justify-content-center">
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editBookModal"
                     data-id=`+book._id+` data-name="`+book.name+`" ` + `data-category="`+book.category+`"
-                    data-categoryid=`+book.categoryID+` data-price=`+book.basePrice+` data-description="`+book.description+`" `
+                    data-categoryid=`+book.categoryID+` data-price=`+book.basePrice+` data-description='`+book.description+`' `
             if (book.coverString) {
                 if (book.coverString[0]){
                     stringHTML += `data-firstcoverstring=`+book.coversString[0]+`" data-firstcovertype="` + book.coverTypes[0]+`" `
