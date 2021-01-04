@@ -1,9 +1,8 @@
-const formidable = require('formidable');
-const fs = require('fs');
 const mongoose = require('mongoose');
 const { ObjectID } = require('mongodb');
 
 const Book = require('../models/listBookModels')
+const Category = require('../models/listCategoryModels')
 
 exports.index = (req, res, next) => {
     res.render('index', {
@@ -19,14 +18,10 @@ exports.books = async (req, res, next) => {
 
     console.log("Loading categories")
 
-    let categories = [];
-    books.forEach(book => {
-        const isExist = categories.find((category) => {
-            return category == book.category
-        })
-        if (isExist === undefined) {
-            categories.push(book.category)
-        }
+    let listCategory = await Category.findCategories();
+    let categories = []
+    listCategory.forEach(category => {
+        categories.push(category.name)
     });
 
     console.log("Load categories successfully!")
@@ -44,49 +39,8 @@ exports.addBook = async (req, res, next) => {
     const basePrice = req.body.basePrice;
     const description = req.body.description;
 
-    let categoryID
-    switch (category) {
-        case 'Art':
-            categoryID = mongoose.Types.ObjectId('5fcca69f41329f2ca085b7b4');
-            break;
-        case 'Autobiography':
-            categoryID = mongoose.Types.ObjectId('5fcca69f41329f2ca085b7b5');
-            break;
-        case 'Biography':
-            categoryID = mongoose.Types.ObjectId('5fcca69f41329f2ca085b7b6');
-            break;
-        case 'Chick Lit':
-            categoryID = mongoose.Types.ObjectId('5fcca69f41329f2ca085b7b7');
-            break;
-        case 'Comming-Of-Age':
-            categoryID = mongoose.Types.ObjectId('5fcca69f41329f2ca085b7b8');
-            break;
-        case 'Anthology':
-            categoryID = mongoose.Types.ObjectId('5fcca69f41329f2ca085b7b9');
-            break;
-        case 'Drama':
-            categoryID = mongoose.Types.ObjectId('5fcca69f41329f2ca085b7ba');
-            break;
-        case 'Crime':
-            categoryID = mongoose.Types.ObjectId('5fcca69f41329f2ca085b7bb');
-            break;
-        case 'Dictionary':
-            categoryID = mongoose.Types.ObjectId('5fcca69f41329f2ca085b7bc');
-            break;
-        case 'Health':
-            categoryID = mongoose.Types.ObjectId('5fcca69f41329f2ca085b7bd');
-            break;
-        case 'History':
-            categoryID = mongoose.Types.ObjectId('5fcca69f41329f2ca085b7be');
-            break;
-        case 'Hornor':
-            categoryID = mongoose.Types.ObjectId('5fcca69f41329f2ca085b7bf');
-            break;
-        case 'Poetry':
-            categoryID = mongoose.Types.ObjectId('5fcca69f41329f2ca085b7c0');
-            break;
-        default:
-    }
+    let tempFilter = {name: category}
+    categoryID = Category.findCategories(tempFilter)._id
 
     const book = {
         name: name,
@@ -105,6 +59,7 @@ exports.addBook = async (req, res, next) => {
 
     try {
         await Book.addOneBook(book);
+        await Category.addOneBookToCategory(tempFilter);
         res.redirect('/books');
     }
     catch (err) {
@@ -144,49 +99,9 @@ exports.updateBook = async (req, res, next) => {
 
     const filter = { _id: id };
 
-    let categoryID;
-    switch (category) {
-        case 'Art':
-            categoryID = mongoose.Types.ObjectId('5fcca69f41329f2ca085b7b4');
-            break;
-        case 'Autobiography':
-            categoryID = mongoose.Types.ObjectId('5fcca69f41329f2ca085b7b5');
-            break;
-        case 'Biography':
-            categoryID = mongoose.Types.ObjectId('5fcca69f41329f2ca085b7b6');
-            break;
-        case 'Chick Lit':
-            categoryID = mongoose.Types.ObjectId('5fcca69f41329f2ca085b7b7');
-            break;
-        case 'Comming-Of-Age':
-            categoryID = mongoose.Types.ObjectId('5fcca69f41329f2ca085b7b8');
-            break;
-        case 'Anthology':
-            categoryID = mongoose.Types.ObjectId('5fcca69f41329f2ca085b7b9');
-            break;
-        case 'Drama':
-            categoryID = mongoose.Types.ObjectId('5fcca69f41329f2ca085b7ba');
-            break;
-        case 'Crime':
-            categoryID = mongoose.Types.ObjectId('5fcca69f41329f2ca085b7bb');
-            break;
-        case 'Dictionary':
-            categoryID = mongoose.Types.ObjectId('5fcca69f41329f2ca085b7bc');
-            break;
-        case 'Health':
-            categoryID = mongoose.Types.ObjectId('5fcca69f41329f2ca085b7bd');
-            break;
-        case 'History':
-            categoryID = mongoose.Types.ObjectId('5fcca69f41329f2ca085b7be');
-            break;
-        case 'Hornor':
-            categoryID = mongoose.Types.ObjectId('5fcca69f41329f2ca085b7bf');
-            break;
-        case 'Poetry':
-            categoryID = mongoose.Types.ObjectId('5fcca69f41329f2ca085b7c0');
-            break;
-        default:
-    }
+    let tempFilter = {name: category}
+    categoryID = Category.findCategories(tempFilter)._id
+
 
     let update = {
         name: name,
