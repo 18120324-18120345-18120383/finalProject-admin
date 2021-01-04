@@ -23,7 +23,6 @@ exports.books = async (req, res, next) => {
     listCategory.forEach(category => {
         categories.push(category.name)
     });
-    console.log(categories)
 
     console.log("Load categories successfully!")
 
@@ -41,7 +40,7 @@ exports.addBook = async (req, res, next) => {
     const description = req.body.description;
 
     let tempFilter = {name: category}
-    categoryID = Category.findCategories(tempFilter)._id
+    let categoryID = (await Category.findCategories(tempFilter))[0]._id
 
     const book = {
         name: name,
@@ -101,7 +100,7 @@ exports.updateBook = async (req, res, next) => {
     const filter = { _id: id };
 
     let tempFilter = {name: category}
-    categoryID = Category.findCategories(tempFilter)._id
+    categoryID = (await Category.findCategories(tempFilter))[0]._id
 
 
     let update = {

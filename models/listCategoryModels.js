@@ -12,11 +12,6 @@ module.exports.findCategories = async (filter = null) => {
     return categories;
 }
 
-module.exports.updateCategory = async (filter, update) => {
-    const category = await Categories.findOneAndUpdate(filter, update)
-    return category
-}
-
 module.exports.addOneBookToCategory = async (filter) => {
     //find the category of the book
     let category = await Categories.find(filter)
