@@ -37,27 +37,77 @@
               </tr>
             </tfoot>
             <tbody id="bodyBooksTable">
+              {{#each days}}
               <tr>
-                {{#each days}}
                 <td>{{orderDate}}</td>
                 <td>{{totalIncome}}</td>
-                {{/each}}
-                {{#each months}}
-                <td>{{orderDate}}</td>
-                <td>{{totalIncome}}</td>
-                {{/each}}
-                {{#each years}}
-                <td>{{orderDate}}</td>
-                <td>{{totalIncome}}</td>
-                {{/each}}
-                {{#each quarters}}
-                <td>{{orderDate}}</td>
-                <td>{{totalIncome}}</td>
-                {{/each}}
                 <td>
-                  <button class="btn btn-link">View Top 10</button>
+                  <form action="/carts/view-top-10" method="POST">
+                    {{#each products}}
+                    <input type="text" value='{{productID}}' name="productID" hidden>
+                    <input type="text" value='{{name}}' name="name" hidden>
+                    <input type="text" value='{{quantity}}' name="quantity" hidden>
+                    <input type="text" value='{{total}}' name="total" hidden>
+                    {{/each}}
+                    <input type="text" value='{{orderDate}}' name="orderDate" hidden>
+                    <button type="submit" class="btn btn-link">View Top 10</button>
+                  </form>
                 </td>
               </tr>
+              {{/each}}
+              {{#each months}}
+              <tr>
+                <td>{{orderDate}}</td>
+                <td>{{totalIncome}}</td>
+                <td>
+                  <form action="/carts/view-top-10" method="POST">
+                    {{#each products}}
+                    <input type="text" value='{{productID}}' name="productID" hidden>
+                    <input type="text" value='{{name}}' name="name" hidden>
+                    <input type="text" value='{{quantity}}' name="quantity" hidden>
+                    <input type="text" value='{{total}}' name="total" hidden>
+                    {{/each}}
+                    <input type="text" value='{{orderDate}}' name="orderDate" hidden>
+                    <button type="submit" class="btn btn-link">View Top 10</button>
+                  </form>
+                </td>
+              </tr>
+              {{/each}}
+              {{#each years}}
+              <tr>
+                <td>{{orderDate}}</td>
+                <td>{{totalIncome}}</td>
+                <td>
+                  <form action="/carts/view-top-10" method="POST">
+                    {{#each products}}
+                    <input type="text" value='{{productID}}' name="productID" hidden>
+                    <input type="text" value='{{name}}' name="name" hidden>
+                    <input type="text" value='{{quantity}}' name="quantity" hidden>
+                    <input type="text" value='{{total}}' name="total" hidden>
+                    {{/each}}
+                    <input type="text" value='{{orderDate}}' name="orderDate" hidden>
+                    <button type="submit" class="btn btn-link">View Top 10</button>
+                  </form>
+                </td>
+              </tr>
+              {{/each}}
+              {{#each quarters}}
+              <td>{{orderDate}}</td>
+              <td>{{totalIncome}}</td>
+              <td>
+                <form action="/carts/view-top-10" method="POST">
+                    {{#each products}}
+                    <input type="text" value='{{productID}}' name="productID" hidden>
+                    <input type="text" value='{{name}}' name="name" hidden>
+                    <input type="text" value='{{quantity}}' name="quantity" hidden>
+                    <input type="text" value='{{total}}' name="total" hidden>
+                    {{/each}}
+                    <input type="text" value='{{orderDate}}' name="orderDate" hidden>
+                    <button type="submit" class="btn btn-link">View Top 10</button>
+                  </form>
+              </td>
+              </tr>
+              {{/each}}
             </tbody>
           </table>
         </div>

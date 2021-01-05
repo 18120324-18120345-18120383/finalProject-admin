@@ -12,4 +12,5 @@ router.get('/stat-by-day', controllerCarts.statByDay);
 router.get('/stat-by-month', controllerCarts.statByMonth);
 router.get('/stat-by-year', controllerCarts.statByYear);
 router.get('/stat-by-quarter', controllerCarts.statByQuarter);
+router.post('/view-top-10', controllerCarts.viewTop10);
 module.exports = router;
