@@ -10,7 +10,7 @@ router.use(express.static('public'))
 router.use(methodOverride('_method'))
 
 /* GET home page. */
-router.get('/', checkAuthenticated, controllerBooks.index);
+router.get('/', controllerBooks.index);
 router.get('/login', checkNotAuthenticated, controllerAdmin.login);
 router.post('/login', passport.authenticate('local', {
     successRedirect: '/',

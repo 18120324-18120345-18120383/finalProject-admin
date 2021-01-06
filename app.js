@@ -17,7 +17,7 @@ const apiRouter = require('./routes/api')
 
 const app = express();
 
-const url = "mongodb+srv://team-web:i031Onxb3JsJ0Gj9@cluster0.nhzle.mongodb.net/book-store?retryWrites=true&w=majority"
+const url = "mongodb+srv://team-web:i031Onxb3JsJ0Gj9@cluster0.nhzle.mongodb.net/book-shop?retryWrites=true&w=majority"
 mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true})
 .then((result) => console.log('connected to db'))
 .catch((err) => console.log(err))
@@ -47,7 +47,7 @@ app.use(function (req, res, next) {
 });
 
 app.use('/', indexRouter);
-app.use('/books', checkAuthenticated, booksRouter)
+app.use('/books', booksRouter)
 app.use('/users-account', checkAuthenticated, userRouter)
 app.use('/carts', checkAuthenticated, cartsRouter)
 app.use('/api', checkAuthenticated, apiRouter)

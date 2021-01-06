@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const { ObjectID } = require('mongodb');
+const formidable = require('formidable');
+const fs = require('fs')
 
 const Book = require('../models/listBookModels')
 const Category = require('../models/listCategoryModels')
@@ -13,7 +15,7 @@ exports.books = async (req, res, next) => {
     console.log("Loading books...")
 
     let books = await Book.listBook();
-   
+
     console.log("Load books successfully!")
 
     console.log("Loading categories")
@@ -33,39 +35,90 @@ exports.books = async (req, res, next) => {
     });
 }
 exports.addBook = async (req, res, next) => {
-    const name = req.body.name;
-    const category = req.body.category;
-    const coversEncoded = [req.body.cover1, req.body.cover2, req.body.cover3];
-    const basePrice = req.body.basePrice;
-    const description = req.body.description;
+    const form = formidable({ multiples: true });
+    let cover = [];
+    form.parse(req, async (err, fields, files) => {
+        if (err) {
+            next(err);
+            return;
+        }
+        console.log(__dirname + '/../public/image/books')
+        let image = []
+        if (files.cover1 && files.cover1.size > 0) {
+            const name = files.cover1.path.split('/').pop();
+            const extension = files.cover1.name.split('.').pop();
+            cover.push('img/' + name + '.' + extension);
+            const filePathCustomer = __dirname + '/../../finalProject-customer/public/book-shop/img/books/';
+            fs.renameSync(files.cover1.path, filePathCustomer + name + '.' + extension);
+            image.push('/book-shop/img/books/' + name + '.' + extension);
+        }
+        if (files.cover2 && files.cover2.size > 0) {
+            const name = files.cover2.path.split('/').pop();
+            const extension = files.cover2.name.split('.').pop();
+            cover.push('img/' + name + '.' + extension);
 
-    let tempFilter = {name: category}
-    let categoryID = (await Category.findCategories(tempFilter))[0]._id
-
-    const book = {
-        name: name,
-        category: category,
-        categoryID: categoryID,
-        basePrice: basePrice,
-        description: description
-    };
-
-    let temp = saveCovers(coversEncoded)
-
-    if (temp) {
-        book.coverTypes = temp.coverTypes;
-        book.coversString = temp.coversString;
-    }
-
-    try {
-        await Book.addOneBook(book);
-        await Category.addOneBookToCategory(tempFilter);
-        res.redirect('/books');
-    }
-    catch (err) {
-        console.log(err);
-    }
+            const filePathCustomer = __dirname + '/../../finalProject-customer/public/book-shop/img/books/';
+            fs.renameSync(files.cover2.path, filePathCustomer + name + '.' + extension);
+            image.push('/book-shop/img/books/' + name + '.' + extension);
+        }
+        if (files.cover3 && files.cover3.size > 0) {
+            const name = files.cover3.path.split('/').pop();
+            const extension = files.cover3.name.split('.').pop();
+            cover.push('img/' + name + '.' + extension);
+            const filePathCustomer = __dirname + '/../../finalProject-customer/public/book-shop/img/books/';
+            fs.renameSync(files.cover3.path, filePathCustomer + name + '.' + extension);
+            image.push('/book-shop/img/books/' + name + '.' + extension);
+        }
+        const book = {
+            name: fields.name,
+            basePrice: fields.basePrice,
+            description: fields.description,
+            coversString: image
+        };
+        try {
+            await Book.addOneBook(book);
+            res.redirect('/books');
+        }
+        catch (err) {
+            console.log(err);
+        }
+    });
 }
+
+
+//     const name = req.body.name;
+//     const category = req.body.category;
+//     const coversEncoded = [req.body.cover1, req.body.cover2, req.body.cover3];
+//     const basePrice = req.body.basePrice;
+//     const description = req.body.description;
+
+//     let tempFilter = {name: category}
+//     let categoryID = (await Category.findCategories(tempFilter))[0]._id
+
+    // const book = {
+    //     name: name,
+    //     category: category,
+    //     categoryID: categoryID,
+    //     basePrice: basePrice,
+    //     description: description
+    // };
+
+//     let temp = saveCovers(coversEncoded)
+
+//     if (temp) {
+//         book.coverTypes = temp.coverTypes;
+//         book.coversString = temp.coversString;
+//     }
+
+//     try {
+//         await Book.addOneBook(book);
+//         await Category.addOneBookToCategory(tempFilter);
+//         res.redirect('/books');
+//     }
+//     catch (err) {
+//         console.log(err);
+//     }
+// }
 const saveCovers = (coversEncoded) => {
     let coverTypes = []
     let coversString = []
@@ -99,7 +152,7 @@ exports.updateBook = async (req, res, next) => {
 
     const filter = { _id: id };
 
-    let tempFilter = {name: category}
+    let tempFilter = { name: category }
     categoryID = (await Category.findCategories(tempFilter))[0]._id
 
 
@@ -117,8 +170,8 @@ exports.updateBook = async (req, res, next) => {
         const book = await Book.getOneBook(id)
         update.coversString = []
         update.coverTypes = []
-        for (let i = 0; i < 3; i++){
-            if (!temp.coversString[i]){
+        for (let i = 0; i < 3; i++) {
+            if (!temp.coversString[i]) {
                 update.coversString.push(book.coversString[i])
                 update.coverTypes.push(book.coverTypes[i])
             } else {
