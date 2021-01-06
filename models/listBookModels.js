@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const bookSchema = new Schema({
     name : String,
     coversString: [String],
-    coverTypes: [String],
+    // coverTypes: [String],
     category: String,
     categoryID: ObjectID,
     basePrice: Number,
