@@ -35,3 +35,25 @@ exports.findCoverById = async (req, res, next) => {
 
     res.json({coversString, coverTypes})
 }
+exports.checkExistUsername = async (req, res, next) => {
+    const username = req.query.username;
+
+    const admin = await admins.getAdminByUsername(username)
+
+    if (admin){
+        res.send(true);
+    } else {
+        res.send(false);
+    }
+}
+exports.checkExistEmail = async (req, res, next) => {
+    const email = req.query.email;
+
+    const admin = await admins.getAdminByEmail(email)
+
+    if (admin){
+        res.send(true);
+    } else {
+        res.send(false);
+    }
+}

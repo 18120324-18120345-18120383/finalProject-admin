@@ -1,0 +1,189 @@
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">Admins Account</h1>
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <div class="row">
+        <div class="col-sm-12">
+          <h6 class="m-0 font-weight-bold text-primary">List of Admin Account</h6>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive filterable">
+        <table class="table table-bordered" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>Email</th>
+              <th>First name</th>
+              <th>Last name</th>
+              <th>Active</th>
+              <th>Detail</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th>Username</th>
+              <th>Email</th>
+              <th>First name</th>
+              <th>Last name</th>
+              <th>Active</th>
+            </tr>
+          </tfoot>
+          <tbody>
+            {{#each admins}}
+            <tr>
+              <td>{{username}}</td>
+              <td>{{email}}</td>
+              <td>{{firstName}}</td>
+              <td>{{lastName}}</td>
+              <td>
+                <div class="d-flex justify-content-center">
+                  {{#if isActive}}
+                  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#activeModal"
+                    data-id={{_id}} data-username={{username}} data-email={{email}} data-isactive="{{isActive}}">
+                    Active
+                  </button>
+                  {{else}}
+                  <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#activeModal"
+                    data-id={{_id}} data-username={{username}} data-email={{email}} data-isactive="{{isActive}}">
+                    Blocked
+                  </button>
+                  {{/if}}
+                </div>
+              </td>
+              <td>
+                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#detailModal"
+                  data-id={{_id}} data-username={{username}} data-email={{email}} data-firstname="{{firstName}}"
+                  data-lastname="{{lastName}}" data-more="{{more}}" data-phonenumber="{{phoneNumber}}"
+                  data-isactive="{{isActive}}">
+                  Detail
+                </button>
+              </td>
+            </tr>
+            {{/each}}
+            <!-- Detail Modal -->
+
+            <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  {{!-- Update --}}
+                  <form>
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">User account detail</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="form-group">
+                        <input id="id" name="id" hidden>
+                      </div>
+                      <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" disabled>
+                      </div>
+                      <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" disabled>
+                      </div>
+                      <div class="form-group">
+                        <label for="firstName">First name</label>
+                        <input type="text" class="form-control" id="firstName" disabled>
+                      </div>
+                      <div class="form-group">
+                        <label for="lastName">Last name</label>
+                        <input type="text" class="form-control" id="lastName" disabled>
+                      </div>
+                      <div class="form-group">
+                        <label for="more">More</label>
+                        <textarea class="form-control" id="more" disabled></textarea>
+                      </div>
+                      <div class="form-group">
+                        <p>Active</p>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input isActive" type="radio" name="isActive" id="trueIsActive"
+                            value="false" disabled>
+                          <label class="form-check-label" for="trueIsActive">Blocked</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input isActive" type="radio" name="isActive" id="falseIsActive"
+                            value="true" disabled>
+                          <label class="form-check-label" for="falseIsActive">Active</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <!-- End of Detail Modal -->
+
+            <!-- Active Modal -->
+            <div class="modal fade" id="activeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  {{!-- Update --}}
+                  <form action="/admins/changeIsActive" method="POST">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Activate/Block account</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="form-group">
+                        <input id="id" name="id" hidden>
+                      </div>
+                      <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" disabled>
+                      </div>
+                      <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" disabled>
+                      </div>
+                      <div class="form-group">
+                        <p>Active</p>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input isActive" type="radio" name="isActive" id="trueIsActive"
+                            value="false">
+                          <label class="form-check-label" for="trueIsActive">Blocked</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input isActive" type="radio" name="isActive" id="falseIsActive"
+                            value="true">
+                          <label class="form-check-label" for="falseIsActive">Active</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Save change</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <!-- End of Active Modal -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /.container-fluid -->
+
+</div>
+<!-- End of Main Content -->
+<script src="js/filterUsers.js"></script>

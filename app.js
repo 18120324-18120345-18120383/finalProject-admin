@@ -32,6 +32,7 @@ app.use(express.urlencoded({ limit: '10mb', extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/reset-password', express.static(path.join(__dirname, 'public')))
+app.use('/verify-account', express.static(path.join(__dirname, 'public')))
 
 app.use(session({ secret: "cats" }));
 app.use(bodyParser.json({ limit: '10mb', extended: true }));
@@ -50,7 +51,7 @@ app.use('/', indexRouter);
 app.use('/books', checkAuthenticated, booksRouter)
 app.use('/users-account', checkAuthenticated, userRouter)
 app.use('/carts', checkAuthenticated, cartsRouter)
-app.use('/api', checkAuthenticated, apiRouter)
+app.use('/api', apiRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
