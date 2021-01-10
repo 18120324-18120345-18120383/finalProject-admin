@@ -12,13 +12,13 @@ module.exports.findCategories = async (filter = null) => {
     return categories;
 }
 
-module.exports.addOneBookToCategory = async (filter) => {
+module.exports.updateNumberOfBookInCategory = async (filter, changeNumber) => {
     //find the category of the book
     let category = await Categories.find(filter)
 
     if (category) {
         //increase number of books
-        let newNumOfBooks = category[0].numberOfBook + 1;
+        let newNumOfBooks = category[0].numberOfBook + changeNumber;
         
         //update number of books
         const update = { numberOfBook: newNumOfBooks }

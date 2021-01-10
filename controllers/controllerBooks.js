@@ -59,7 +59,7 @@ exports.addBook = async (req, res, next) => {
 
     try {
         await Book.addOneBook(book);
-        await Category.addOneBookToCategory(tempFilter);
+        await Category.updateNumberOfBookInCategory(tempFilter, 1);
         res.redirect('/books');
     }
     catch (err) {
@@ -115,6 +115,17 @@ exports.updateBook = async (req, res, next) => {
 
     if (temp) {
         const book = await Book.getOneBook(id)
+
+        if (book.category != category) {
+            //decrease number of book in current category
+            tempFilter = {name: book.category}
+            await Category.updateNumberOfBookInCategory(tempFilter, -1);
+
+            //increase number of book in new category
+            tempFilter = {name: category}
+            await Category.updateNumberOfBookInCategory(tempFilter, 1);
+        }
+
         update.coversString = []
         update.coverTypes = []
         for (let i = 0; i < 3; i++){
@@ -137,10 +148,16 @@ exports.updateBook = async (req, res, next) => {
     }
 
 }
-exports.deleteBook = (req, res, next) => {
+exports.deleteBook = async (req, res, next) => {
     const id = req.body.id;
     try {
-        Book.deleteOneBook(id);
+        //decrease number of book in category
+        let book = await Book.getOneBook(id)
+        let tempFilter = {name: book.category}
+        await Category.updateNumberOfBookInCategory(tempFilter, -1);
+
+        //delete book
+        await Book.deleteOneBook(id);
         res.redirect('/books');
     }
     catch (err) {
