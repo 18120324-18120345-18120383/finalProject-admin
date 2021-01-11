@@ -14,7 +14,7 @@ const bookSchema = new Schema({
     buyCount: Number
 })
 
-const Book = mongoose.model('list-books', bookSchema);
+const Book = mongoose.model('books', bookSchema);
 
 module.exports.deleteOneBook = async (id) => {
     const result = await Book.findByIdAndRemove(id);

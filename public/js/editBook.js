@@ -19,15 +19,14 @@ $('#editBookModal').on('show.bs.modal', function (event) {
 
   $.getJSON('/api/find-cover-by-id', { id }, (data) => {
     let coversString = data.coversString;
-    let coverTypes = data.coverTypes;
     modal.find('.modal-body #imgCover1').html(`
-      <img src='data:`+ coverTypes[0] + `;charset=utf-8;base64,` + coversString[0] + `' alt="Cover1" style="width: 200px; heigh: 200px; margin: auto">
+      <img src=`+ coversString[0] +` name="cover1" alt="Cover1" style="width: 200px; heigh: 200px; margin: auto">
     `)
     modal.find('.modal-body #imgCover2').html(`
-      <img src='data:`+ coverTypes[1] + `;charset=utf-8;base64,` + coversString[1] + `' alt="Cover2" style="width: 200px; heigh: 200px; margin: auto">
+      <img src=`+ coversString[1] +` name="cover2" alt="Cover2" style="width: 200px; heigh: 200px; margin: auto">
     `)
     modal.find('.modal-body #imgCover3').html(`
-      <img src='data:`+ coverTypes[2] + `;charset=utf-8;base64,` + coversString[2] + `' alt="Cover3" style="width: 200px; heigh: 200px; margin: auto">
+      <img src=`+ coversString[2] +` name="cover3" alt="Cover3" style="width: 200px; heigh: 200px; margin: auto">
     `)
   })
 })

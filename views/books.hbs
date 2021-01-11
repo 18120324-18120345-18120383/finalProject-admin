@@ -16,7 +16,7 @@
         </div>
       </div>
       {{!-- Add --}}
-      <form action="/books/add" method="POST">
+      <form action="/books/add" enctype="multipart/form-data" method="POST">
         <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
           aria-hidden="true">
           <div class="modal-dialog" role="document">
@@ -43,19 +43,19 @@
                 <div class="form-group">
                   <label for="fileAddCover1">Cover 1</label>
                   <div style="width: 200px; heigh: 200px; margin: auto">
-                    <input type="file" class="form-control filepond" id="fileAddCover1" name="cover1">
+                    <input type="file" class="form-control" multiple="multiple" id="fileAddCover1" name="cover1">
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="fileAddCover2">Cover 2</label>
                   <div style="width: 200px; heigh: 200px; margin: auto">
-                    <input type="file" class="form-control filepond" id="fileAddCover2" name="cover2">
+                    <input type="file" class="form-control" multiple="multiple" id="fileAddCover2" name="cover2">
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="fileAddCover3">Cover 3</label>
                   <div style="width: 200px; heigh: 200px; margin: auto">
-                    <input type="file" class="form-control filepond" id="fileAddCover3" name="cover3">
+                    <input type="file" class="form-control" multiple="multiple" id="fileAddCover3" name="cover3">
                   </div>
                 </div>
                 <div class="form-group">
@@ -140,7 +140,7 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               {{!-- Update --}}
-              <form action="/books/update" method="POST">
+              <form action="/books/update" enctype="multipart/form-data" method="POST">
                 <div class="modal-header">
                   <h5 class="modal-title" id="exampleModalLabel">Edit Book</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -172,7 +172,7 @@
                       <!-- imgCover1 here -->
                     </div>
                     <div style="width: 200px; heigh: 200px; margin: auto">
-                      <input type="file" class="form-control filepond" id="newCover1" name="newCover1">
+                      <input type="file" class="form-control" multiple="multiple" id="newCover1" name="newCover1">
                     </div>
                   </div>
                   <div class="form-group">
@@ -181,7 +181,7 @@
                       <!-- imgCover2 here -->
                     </div>
                     <div style="width: 200px; heigh: 200px; margin: auto">
-                      <input type="file" class="form-control filepond" id="newCover2" name="newCover2">
+                      <input type="file" class="form-control" multiple="multiple" id="newCover2" name="newCover2">
                     </div>
                   </div>
                   <div class="form-group">
@@ -190,7 +190,7 @@
                       <!-- imgCover3 here -->
                     </div>
                     <div style="width: 200px; heigh: 200px; margin: auto">
-                      <input type="file" class="form-control filepond" id="newCover3" name="newCover3">
+                      <input type="file" class="form-control" multiple="multiple" id="newCover3" name="newCover3">
                     </div>
                   </div>
                   <div class="form-group">

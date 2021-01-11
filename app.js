@@ -18,7 +18,7 @@ const apiRouter = require('./routes/api')
 const app = express();
 
 const url = "mongodb+srv://team-web:i031Onxb3JsJ0Gj9@cluster0.nhzle.mongodb.net/book-store?retryWrites=true&w=majority"
-mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
 .then((result) => console.log('connected to db'))
 .catch((err) => console.log(err))
 
