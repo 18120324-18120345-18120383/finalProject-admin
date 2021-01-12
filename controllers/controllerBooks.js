@@ -48,12 +48,24 @@ exports.addBook = async (req, res, next) => {
             return;
         }
         let image = [];
-        const img1 = await cloudinary.uploader.upload(files.cover1.path);
-        const img2 = await cloudinary.uploader.upload(files.cover2.path);
-        const img3 = await cloudinary.uploader.upload(files.cover3.path);
-        image.push(img1.url);
-        image.push(img2.url);
-        image.push(img3.url);
+        if (files.cover1.size > 0) {
+            const img = await cloudinary.uploader.upload(files.cover1.path);
+            image.push(img.url);
+        } else {
+            image.push("");
+        }
+        if (files.cover2.size > 0) {
+            const img = await cloudinary.uploader.upload(files.cover2.path);
+            image.push(img.url);
+        } else {
+            image.push("");
+        }
+        if (files.cover3.size > 0) {
+            const img = await cloudinary.uploader.upload(files.cover3.path);
+            image.push(img.url);
+        } else {
+            image.push("");
+        }
         let tempFilter = { name: fields.category }
         let categoryID = (await Category.findCategories(tempFilter))[0]._id
         const book = {

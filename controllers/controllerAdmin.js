@@ -1,19 +1,8 @@
 const listAdmin = require('../models/listAdminModels')
 const bcrypt = require('bcrypt')
-
-const multer = require('multer')
 const path = require('path')
-const storage = multer.diskStorage({
-    destination: './public/img/adminAvatar',
-    filename: (req, file, callback) => {
-        callback(null, file.originalname + '-' + Date.now() + path.extname(file.originalname));
-    }
-})
-const upload = multer({
-    storage: storage,
-    limits: { fileSize: 2000000 } //size of image must under 2000000 byte (2MB)
-}).single('avatar')
-
+const formidable = require('formidable');
+const cloudinary = require('cloudinary').v2;
 require("dotenv").config();
 const nodemailer = require('nodemailer')
 const transporter = nodemailer.createTransport({
@@ -26,6 +15,11 @@ const transporter = nodemailer.createTransport({
 const jwt = require('jsonwebtoken')
 const randomstring = require('randomstring')
 const { notify } = require('../routes')
+cloudinary.config({
+    cloud_name: 'dvhhz53rr',
+    api_key: '272966692333936',
+    api_secret: '0Tz28aal-cHCjr0K5bYF4V00XYo'
+});
 
 exports.login = async (req, res, next) => {
     res.render('account/login', {
@@ -184,35 +178,59 @@ exports.getProfile = (req, res, next) => {
     })
 }
 exports.postProfile = (req, res, next) => {
-    upload(req, res, async (err) => {
+    const form = formidable({ multiples: true });
+    form.parse(req, async (err, fields, files) => {
         if (err) {
-            showNotif(res, "Error", err);
-        } else {
-            let avatar;
-            //check if user has uploaded new avatar yet
-            if (req.file !== undefined) {
-                avatar = req.file.filename
-            } else {
-                avatar = null;
-            }
-
-            //fields contain data need to be updated
-            const fields = {
-                firstName: req.body.firstName,
-                lastName: req.body.lastName,
-                more: req.body.more,
-                avatar: avatar
-            }
-
-            const admin = await listAdmin.updateOneAccount(req.user.id, fields)
-
-            if (admin) {
-                res.redirect('/account-profile')
-            } else {
-                showNotif(res, "Error", "Sorry, some error happen while we trying to update your account!")
-            }
+            next(err);
+            return;
         }
-    })
+        let avatar = req.user.avatar;
+        if (files.avatar.size > 0) {
+            const img = await cloudinary.uploader.upload(files.avatar.path);
+            avatar = img.url;
+        }
+        const data = {
+            firstName: fields.firstName,
+            lastName: fields.lastName,
+            more: fields.more,
+            avatar: avatar
+        }
+        const admin = await listAdmin.updateOneAccount(req.user.id, data);
+        if (admin) {
+            res.redirect('/account-profile')
+        } else {
+            showNotif(res, "Error", "Sorry, some error happen while we trying to update your account!")
+        }
+    });
+    // upload(req, res, async (err) => {
+    //     if (err) {
+    //         showNotif(res, "Error", err);
+    //     } else {
+    //         let avatar;
+    //         //check if user has uploaded new avatar yet
+    //         if (req.file !== undefined) {
+    //             avatar = req.file.filename
+    //         } else {
+    //             avatar = null;
+    //         }
+
+    //         //fields contain data need to be updated
+    //         const fields = {
+    //             firstName: req.body.firstName,
+    //             lastName: req.body.lastName,
+    //             more: req.body.more,
+    //             avatar: avatar
+    //         }
+
+    //         const admin = await listAdmin.updateOneAccount(req.user.id, fields)
+
+    //         if (admin) {
+    //             res.redirect('/account-profile')
+    //         } else {
+    //             showNotif(res, "Error", "Sorry, some error happen while we trying to update your account!")
+    //         }
+    //     }
+    // })
 }
 exports.changePassword = (req, res, next) => {
     res.render('account/changePassword', {

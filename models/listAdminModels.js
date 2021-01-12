@@ -65,25 +65,8 @@ module.exports.updateOneAccount = async (id, fields) => {
         firstName: fields.firstName, 
         lastName: fields.lastName,
         more: fields.more,
-        avatar: '/img/adminAvatar/' + fields.avatar
+        avatar: fields.avatar
     };
-    if (fields.avatar === null) {
-        update = {
-            firstName: fields.firstName, 
-            lastName: fields.lastName, 
-            more: fields.more,
-            more: fields.more
-        }
-    } else {
-        //delete current avatar before update new avatar
-        const currentAva = (await Admin.findOne(filter)).avatar 
-        try { 
-            fs.unlinkSync('./public' + currentAva)
-            console.log("delete file successfully!!!")
-        } catch (err){
-            console.log(err)
-        }
-    }
     const admin = await Admin.findOneAndUpdate(filter, update);
     return admin;
 }
