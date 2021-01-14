@@ -86,29 +86,6 @@ exports.addBook = async (req, res, next) => {
         }
     });
 }
-const saveCovers = (coversEncoded) => {
-    let coverTypes = []
-    let coversString = []
-    coversEncoded.forEach(coverEncoded => {
-        if (!coverEncoded) {
-            coverTypes.push(null)
-            coversString.push(null)
-            return;
-        }
-
-        const coverJSON = JSON.parse(coverEncoded)
-        if (coverJSON != null) {
-            let coverString = coverJSON.data;
-            let coverType = coverJSON.type;
-            coverTypes.push(coverType)
-            coversString.push(coverString)
-        }
-    });
-    return {
-        coverTypes,
-        coversString
-    }
-}
 exports.updateBook = async (req, res, next) => {
     const form = formidable({ multiples: true });
     form.parse(req, async (err, fields, files) => {
@@ -134,7 +111,6 @@ exports.updateBook = async (req, res, next) => {
         }
         const filter = { _id: fields.id };
         let tempFilter = { name: fields.newCategory };
-        console.log(tempFilter);
         const categoryID = (await Category.findCategories(tempFilter))[0]._id
         let update = {
             name: fields.newName,

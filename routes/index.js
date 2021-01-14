@@ -21,9 +21,9 @@ router.post('/login', passport.authenticate('local', {
 }))
 router.get('/register', checkNotAuthenticated, controllerAdmin.register);
 router.post('/register', controllerAdmin.postRegister)
-router.get('/reset-password/:token', checkNotAuthenticated, controllerAdmin.resetPassword)
 router.get('/verify-account/:token', checkNotAuthenticated, controllerAdmin.verifyAccount)
-router.post('/forgot-password', controllerAdmin.postForgotPassword)
+router.get('/forgot-password', checkNotAuthenticated, controllerAdmin.forgotPassword)
+router.post('/forgot-password', checkNotAuthenticated, controllerAdmin.postForgotPassword)
 router.get('/reset-password/:token', checkNotAuthenticated, controllerAdmin.resetPassword)
 router.delete('/logout', (req, res) => {
     req.logOut()

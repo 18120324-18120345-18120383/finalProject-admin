@@ -202,35 +202,6 @@ exports.postProfile = (req, res, next) => {
             showNotif(res, "Error", "Sorry, some error happen while we trying to update your account!")
         }
     });
-    // upload(req, res, async (err) => {
-    //     if (err) {
-    //         showNotif(res, "Error", err);
-    //     } else {
-    //         let avatar;
-    //         //check if user has uploaded new avatar yet
-    //         if (req.file !== undefined) {
-    //             avatar = req.file.filename
-    //         } else {
-    //             avatar = null;
-    //         }
-
-    //         //fields contain data need to be updated
-    //         const fields = {
-    //             firstName: req.body.firstName,
-    //             lastName: req.body.lastName,
-    //             more: req.body.more,
-    //             avatar: avatar
-    //         }
-
-    //         const admin = await listAdmin.updateOneAccount(req.user.id, fields)
-
-    //         if (admin) {
-    //             res.redirect('/account-profile')
-    //         } else {
-    //             showNotif(res, "Error", "Sorry, some error happen while we trying to update your account!")
-    //         }
-    //     }
-    // })
 }
 exports.changePassword = (req, res, next) => {
     res.render('account/changePassword', {
