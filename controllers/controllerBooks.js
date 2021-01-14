@@ -116,20 +116,21 @@ exports.updateBook = async (req, res, next) => {
             next(err);
             return;
         }
+        // res.json({ fields, files });
         const book = await Book.getOneBook(fields.id)
         let image = [book.coversString[0], book.coversString[1], book.coversString[2]];
-        console.log(image);
-        if (fields.newCover1) {
-            const img = await cloudinary.uploader.upload(fields.newCover1.path);
-            image[0] = img;
+        // console.log(image);
+        if (files.newCover1 && files.newCover1.size > 0) {
+            const img = await cloudinary.uploader.upload(files.newCover1.path);
+            image[0] = img.url;
         }
-        if (fields.newCover2) {
+        if (files.newCover2 && files.newCover2.size > 0) {
             const img = await cloudinary.uploader.upload(files.newCover2.path);
-            image[1] = img;
+            image[1] = img.url;
         }
-        if (fields.newCover3) {
+        if (files.newCover3 && files.newCover3.size > 0) {
             const img = await cloudinary.uploader.upload(files.newCover3.path);
-            image[2] = img;
+            image[2] = img.url;
         }
         const filter = { _id: fields.id };
         let tempFilter = { name: fields.newCategory };
